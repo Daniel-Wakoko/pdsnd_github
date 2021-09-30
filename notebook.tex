@@ -1,0 +1,2263 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Explore\_bikeshare\_data}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{explore-bike-share-data}{%
+\subsubsection{Explore Bike Share Data}\label{explore-bike-share-data}}
+
+For this project, your goal is to ask and answer three questions about
+the available bikeshare data from Washington, Chicago, and New York.
+This notebook can be submitted directly through the workspace when you
+are confident in your results.
+
+You will be graded against the project
+\href{https://review.udacity.com/\#!/rubrics/2508/view}{Rubric} by a
+mentor after you have submitted. To get you started, you can use the
+template below, but feel free to be creative in your solutions!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{n}{ny} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{new\PYZus{}york\PYZus{}city.csv\PYZsq{}}\PY{p}{)}
+        \PY{n}{wash} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{washington.csv\PYZsq{}}\PY{p}{)}
+        \PY{n}{chi} \PY{o}{=} \PY{n+nf}{read.csv}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{chicago.csv\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n+nf}{head}\PY{p}{(}\PY{n}{ny}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllllll}
+ X & Start.Time & End.Time & Trip.Duration & Start.Station & End.Station & User.Type & Gender & Birth.Year\\
+\hline
+	 5688089                   & 2017-06-11 14:55:05       & 2017-06-11 15:08:21       &  795                      & Suffolk St \& Stanton St & W Broadway \& Spring St  & Subscriber                & Male                      & 1998                     \\
+	 4096714                   & 2017-05-11 15:30:11       & 2017-05-11 15:41:43       &  692                      & Lexington Ave \& E 63 St & 1 Ave \& E 78 St         & Subscriber                & Male                      & 1981                     \\
+	 2173887                   & 2017-03-29 13:26:26       & 2017-03-29 13:48:31       & 1325                      & 1 Pl \& Clinton St       & Henry St \& Degraw St    & Subscriber                & Male                      & 1987                     \\
+	 3945638                   & 2017-05-08 19:47:18       & 2017-05-08 19:59:01       &  703                      & Barrow St \& Hudson St   & W 20 St \& 8 Ave         & Subscriber                & Female                    & 1986                     \\
+	 6208972                   & 2017-06-21 07:49:16       & 2017-06-21 07:54:46       &  329                      & 1 Ave \& E 44 St         & E 53 St \& 3 Ave         & Subscriber                & Male                      & 1992                     \\
+	 1285652                   & 2017-02-22 18:55:24       & 2017-02-22 19:12:03       &  998                      & State St \& Smith St     & Bond St \& Fulton St     & Subscriber                & Male                      & 1986                     \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nf}{head}\PY{p}{(}\PY{n}{wash}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllll}
+ X & Start.Time & End.Time & Trip.Duration & Start.Station & End.Station & User.Type\\
+\hline
+	 1621326                                               & 2017-06-21 08:36:34                                   & 2017-06-21 08:44:43                                   &  489.066                                              & 14th \& Belmont St NW                                & 15th \& K St NW                                      & Subscriber                                           \\
+	  482740                                               & 2017-03-11 10:40:00                                   & 2017-03-11 10:46:00                                   &  402.549                                              & Yuma St \& Tenley Circle NW                          & Connecticut Ave \& Yuma St NW                        & Subscriber                                           \\
+	 1330037                                               & 2017-05-30 01:02:59                                   & 2017-05-30 01:13:37                                   &  637.251                                              & 17th St \& Massachusetts Ave NW                      & 5th \& K St NW                                       & Subscriber                                           \\
+	  665458                                               & 2017-04-02 07:48:35                                   & 2017-04-02 08:19:03                                   & 1827.341                                              & Constitution Ave \& 2nd St NW/DOL                    & M St \& Pennsylvania Ave NW                          & Customer                                             \\
+	 1481135                                               & 2017-06-10 08:36:28                                   & 2017-06-10 09:02:17                                   & 1549.427                                              & Henry Bacon Dr \& Lincoln Memorial Circle NW         & Maine Ave \& 7th St SW                               & Subscriber                                           \\
+	 1148202                                               & 2017-05-14 07:18:18                                   & 2017-05-14 07:24:56                                   &  398.000                                              & 1st \& K St SE                                       & Eastern Market Metro / Pennsylvania Ave \& 7th St SE & Subscriber                                           \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nf}{head}\PY{p}{(}\PY{n}{chi}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{tabular}{r|lllllllll}
+ X & Start.Time & End.Time & Trip.Duration & Start.Station & End.Station & User.Type & Gender & Birth.Year\\
+\hline
+	 1423854                         & 2017-06-23 15:09:32             & 2017-06-23 15:14:53             &  321                            & Wood St \& Hubbard St          & Damen Ave \& Chicago Ave       & Subscriber                      & Male                            & 1992                           \\
+	  955915                        & 2017-05-25 18:19:03            & 2017-05-25 18:45:53            & 1610                           & Theater on the Lake            & Sheffield Ave \& Waveland Ave & Subscriber                     & Female                         & 1992                          \\
+	    9031                         & 2017-01-04 08:27:49             & 2017-01-04 08:34:45             &  416                            & May St \& Taylor St            & Wood St \& Taylor St           & Subscriber                      & Male                            & 1981                           \\
+	  304487                         & 2017-03-06 13:49:38             & 2017-03-06 13:55:28             &  350                            & Christiana Ave \& Lawrence Ave & St. Louis Ave \& Balmoral Ave  & Subscriber                      & Male                            & 1986                           \\
+	   45207                         & 2017-01-17 14:53:07             & 2017-01-17 15:02:01             &  534                            & Clark St \& Randolph St        & Desplaines St \& Jackson Blvd  & Subscriber                      & Male                            & 1975                           \\
+	 1473887                         & 2017-06-26 09:01:20             & 2017-06-26 09:11:06             &  586                            & Clinton St \& Washington Blvd  & Canal St \& Taylor St          & Subscriber                      & Male                            & 1990                           \\
+\end{tabular}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n+nf}{str}\PY{p}{(}\PY{n}{wash}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+'data.frame':	89051 obs. of  7 variables:
+ \$ X            : int  1621326 482740 1330037 665458 1481135 1148202 1594275 1601832 574182 327058 {\ldots}
+ \$ Start.Time   : Factor w/ 81223 levels "","2017-01-01 00:11:00",..: 74753 19510 59964 26708 67716 50891 73381 73775 23142 13333 {\ldots}
+ \$ End.Time     : Factor w/ 81217 levels "","2017-01-01 00:14:00",..: 74744 19473 59981 26732 67753 50918 73397 73775 23114 13350 {\ldots}
+ \$ Trip.Duration: num  489 403 637 1827 1549 {\ldots}
+ \$ Start.Station: Factor w/ 478 levels "","10th \& E St NW",..: 27 478 66 221 278 84 368 82 71 60 {\ldots}
+ \$ End.Station  : Factor w/ 479 levels "","10th \& E St NW",..: 47 219 144 312 315 239 162 376 51 308 {\ldots}
+ \$ User.Type    : Factor w/ 3 levels "","Customer",..: 3 3 3 2 3 3 3 3 3 3 {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}add gender and birth.year columns to the Washington csv}
+        \PY{n}{Gender} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{n+nf}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZdq{}}\PY{p}{,} \PY{l+m}{89051}\PY{p}{)}\PY{p}{)}
+        \PY{n}{Birth.Year} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{c}\PY{p}{(}\PY{n+nf}{rep}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZdq{}}\PY{p}{,} \PY{l+m}{89051}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{wash} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{cbind}\PY{p}{(}\PY{n}{wash}\PY{p}{,} \PY{n}{Gender}\PY{p}{,} \PY{n}{Birth.Year}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}create new column for city on each dataset}
+        \PY{n}{ny}\PY{o}{\PYZdl{}}\PY{n}{city} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{New York\PYZdq{}}
+        \PY{n}{chi}\PY{o}{\PYZdl{}}\PY{n}{city} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Chicago\PYZdq{}}
+        \PY{n}{wash}\PY{o}{\PYZdl{}}\PY{n}{city} \PY{o}{\PYZlt{}\PYZhy{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Washington\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}merge all datasets into one}
+        \PY{n}{cities} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{rbind}\PY{p}{(}\PY{n}{chi}\PY{p}{,} \PY{n}{ny}\PY{p}{,} \PY{n}{wash}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{question-1}{%
+\subsubsection{Question 1}\label{question-1}}
+
+\textbf{What are the counts for each user type?}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Counts of user type by city}
+         \PY{n+nf}{by}\PY{p}{(}\PY{n}{cities}\PY{o}{\PYZdl{}}\PY{n}{User.Type}\PY{p}{,} \PY{n}{cities}\PY{o}{\PYZdl{}}\PY{n}{city}\PY{p}{,} \PY{n}{summary}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+cities$city: Chicago
+             Customer Subscriber 
+         1       1746       6883 
+------------------------------------------------------------ 
+cities$city: New York
+             Customer Subscriber 
+       119       5558      49093 
+------------------------------------------------------------ 
+cities$city: Washington
+             Customer Subscriber 
+         1      23450      65600 
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}plot of user type counts by city}
+         \PY{n+nf}{library}\PY{p}{(}\PY{n}{ggplot2}\PY{p}{)}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{cities}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{User.Type}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{geom\PYZus{}bar}\PY{p}{(}\PY{p}{)} \PY{o}{+}
+           \PY{n+nf}{facet\PYZus{}wrap}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{city}\PY{p}{,} \PY{n}{ncol} \PY{o}{=} \PY{l+m}{3}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{ggtitle}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Counts of User Types for Each City\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{xlab}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{User Types\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{ylab}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Count of User Type\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{The counts for the user types are in the summary statistics
+above. The Subscriber user type was the most frequent in all cities}
+
+    \hypertarget{question-2}{%
+\subsubsection{Question 2}\label{question-2}}
+
+\textbf{What is the most common start station?}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}function to get the most common start station}
+         \PY{n}{get.freq.SS} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{p} \PY{o}{=} \PY{n}{wash}\PY{p}{,} \PY{n}{lab} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZdq{}}\PY{p}{)}\PY{p}{\PYZob{}}
+           \PY{n}{ss.p} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n+nf}{table}\PY{p}{(}\PY{n}{p}\PY{o}{\PYZdl{}}\PY{n}{Start.Station}\PY{p}{)}\PY{p}{)} 
+           \PY{n}{p.freq} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{ss.p}\PY{n+nf}{[which.max}\PY{p}{(}\PY{n}{ss.p}\PY{o}{\PYZdl{}}\PY{n}{Freq}\PY{p}{)}\PY{p}{,} \PY{n}{]}
+           \PY{n}{p.freq}\PY{n}{[1}\PY{p}{,} \PY{l+m}{1}\PY{n}{]}
+           \PY{n+nf}{print}\PY{p}{(}\PY{n}{lab}\PY{p}{)}
+           
+           \PY{n+nf}{return}\PY{p}{(}\PY{n}{p.freq}\PY{n}{[1}\PY{p}{,} \PY{l+m}{1}\PY{n}{]}\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}Most common start stations for each city}
+         \PY{n+nf}{get.freq.SS}\PY{p}{(}\PY{n}{ny}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{New York\PYZsq{}s most common Start Station\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{get.freq.SS}\PY{p}{(}\PY{n}{wash}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Washington\PYZsq{}s most common Start Station\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{get.freq.SS}\PY{p}{(}\PY{n}{chi}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Chicago\PYZsq{}s most common Start Station\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "New York's most common Start Station"
+
+    \end{Verbatim}
+
+    Pershing Square North
+\emph{Levels}: \begin{enumerate*}
+\item ''
+\item '1 Ave \& E 16 St'
+\item '1 Ave \& E 18 St'
+\item '1 Ave \& E 30 St'
+\item '1 Ave \& E 44 St'
+\item '1 Ave \& E 62 St'
+\item '1 Ave \& E 68 St'
+\item '1 Ave \& E 78 St'
+\item '1 Ave \& E 94 St'
+\item '1 Pl \& Clinton St'
+\item '10 Hudson Yards'
+\item '10 St \& 5 Ave'
+\item '10 St \& 7 Ave'
+\item '11 Ave \& W 27 St'
+\item '11 Ave \& W 41 St'
+\item '11 Ave \& W 59 St'
+\item '12 Ave \& W 40 St'
+\item '12 St \& 4 Ave'
+\item '14 St \& 5 Ave'
+\item '14 St \& 7 Ave'
+\item '2 Ave  \& E 104 St'
+\item '2 Ave \& 9 St'
+\item '2 Ave \& E 31 St'
+\item '2 Ave \& E 96 St'
+\item '2 Ave \& E 99 St'
+\item '21 St \& 41 Ave'
+\item '21 St \& 43 Ave'
+\item '21 St \& Queens Plaza North'
+\item '3 Ave \& 14 St'
+\item '3 Ave \& E 100 St'
+\item '3 Ave \& E 62 St'
+\item '3 Ave \& E 71 St'
+\item '3 Ave \& E 72 St'
+\item '3 St \& 3 Ave'
+\item '3 St \& 7 Ave'
+\item '3 St \& Hoyt St'
+\item '3 St \& Prospect Park West'
+\item '31 St \& Thomson Ave'
+\item '4 Ave \& 2 St'
+\item '4 Ave \& 9 St'
+\item '44 Dr \& Jackson Ave'
+\item '45 Rd \& 11 St'
+\item '46 Ave \& 5 St'
+\item '47 Ave \& 31 St'
+\item '48 Ave \& 5 St'
+\item '5 Ave \& 3 St'
+\item '5 Ave \& E 103 St'
+\item '5 Ave \& E 29 St'
+\item '5 Ave \& E 63 St'
+\item '5 Ave \& E 73 St'
+\item '5 Ave \& E 78 St'
+\item '5 Ave \& E 88 St'
+\item '5 Ave \& E 93 St'
+\item '5 St \& 6 Ave'
+\item '6 Ave \& 12 St'
+\item '6 Ave \& 9 St'
+\item '6 Ave \& Broome St'
+\item '6 Ave \& Canal St'
+\item '6 Ave \& W 33 St'
+\item '6 St \& 7 Ave'
+\item '7 Ave \& Park Pl'
+\item '7 St \& 3 Ave'
+\item '7 St \& 5 Ave'
+\item '8 Ave \& W 16 St'
+\item '8 Ave \& W 31 St'
+\item '8 Ave \& W 33 St'
+\item '8 Ave \& W 52 St'
+\item '9 Ave \& W 18 St'
+\item '9 Ave \& W 22 St'
+\item '9 Ave \& W 28 St'
+\item '9 Ave \& W 45 St'
+\item '9 St \& 44 Rd'
+\item 'Adelphi St \& Myrtle Ave'
+\item 'Adventures NYC'
+\item 'Albany Ave \& Fulton St'
+\item 'Allen St \& Hester St'
+\item 'Allen St \& Rivington St'
+\item 'Allen St \& Stanton St'
+\item 'Amsterdam Ave \& W 66 St'
+\item 'Amsterdam Ave \& W 73 St'
+\item 'Amsterdam Ave \& W 79 St'
+\item 'Amsterdam Ave \& W 82 St'
+\item 'Atlantic Ave \& Fort Greene Pl'
+\item 'Atlantic Ave \& Furman St'
+\item 'Avenue D \& E 12 St'
+\item 'Avenue D \& E 3 St'
+\item 'Avenue D \& E 8 St'
+\item 'Baltic St \& 5 Ave'
+\item 'Bank St \& Hudson St'
+\item 'Bank St \& Washington St'
+\item 'Banker St \& Meserole Ave'
+\item 'Barclay St \& Church St'
+\item 'Barrow St \& Hudson St'
+\item 'Bayard St \& Baxter St'
+\item 'Bayard St \& Leonard St'
+\item 'Bedford Ave \& Nassau Ave'
+\item 'Bedford Ave \& S 9 St'
+\item 'Bergen St \& Flatbush Ave'
+\item 'Bergen St \& Smith St'
+\item 'Berkeley Pl \& 6 Ave'
+\item 'Berkeley Pl \& 7 Ave'
+\item 'Berry St \& N 8 St'
+\item 'Bialystoker Pl \& Delancey St'
+\item 'Bike The Branches - Central Branch'
+\item 'Boerum St \& Broadway'
+\item 'Bond St \& Bergen St'
+\item 'Bond St \& Fulton St'
+\item 'Bond St \& Schermerhorn St'
+\item 'Broad St \& Bridge St'
+\item 'Broadway \& Battery Pl'
+\item 'Broadway \& Berry St'
+\item 'Broadway \& E 14 St'
+\item 'Broadway \& E 22 St'
+\item 'Broadway \& Roebling St'
+\item 'Broadway \& W 24 St'
+\item 'Broadway \& W 29 St'
+\item 'Broadway \& W 32 St'
+\item 'Broadway \& W 36 St'
+\item 'Broadway \& W 37 St'
+\item 'Broadway \& W 39 St'
+\item 'Broadway \& W 41 St'
+\item 'Broadway \& W 49 St'
+\item 'Broadway \& W 51 St'
+\item 'Broadway \& W 53 St'
+\item 'Broadway \& W 55 St'
+\item 'Broadway \& W 56 St'
+\item 'Broadway \& W 58 St'
+\item 'Broadway \& W 60 St'
+\item 'Broadway \& Whipple St'
+\item 'Brooklyn Bridge Park - Pier 2'
+\item 'Bus Slip \& State St'
+\item 'Bushwick Ave \& Powers St'
+\item 'Butler St \& Court St'
+\item 'Cadman Plaza E \& Red Cross Pl'
+\item 'Cadman Plaza E \& Tillary St'
+\item 'Cadman Plaza West \& Montague St'
+\item 'Cambridge Pl \& Gates Ave'
+\item 'Canal St \& Rutgers St'
+\item 'Carlton Ave \& Flushing Ave'
+\item 'Carlton Ave \& Park Ave'
+\item 'Carmine St \& 6 Ave'
+\item 'Carroll St \& 5 Ave'
+\item 'Carroll St \& 6 Ave'
+\item 'Carroll St \& Bond St'
+\item 'Carroll St \& Columbia St'
+\item 'Carroll St \& Smith St'
+\item 'Cathedral Pkwy \& Broadway'
+\item 'Catherine St \& Monroe St'
+\item 'Center Blvd \& Borden Ave'
+\item 'Central Park North \& Adam Clayton Powell Blvd'
+\item 'Central Park S \& 6 Ave'
+\item 'Central Park W \& W 96 St'
+\item 'Central Park West \& W 100 St'
+\item 'Central Park West \& W 102 St'
+\item 'Central Park West \& W 68 St'
+\item 'Central Park West \& W 72 St'
+\item 'Central Park West \& W 76 St'
+\item 'Central Park West \& W 85 St'
+\item 'Centre St \& Chambers St'
+\item 'Centre St \& Worth St'
+\item 'Cherry St'
+\item 'Christopher St \& Greenwich St'
+\item 'Clark St \& Henry St'
+\item 'Clermont Ave \& Lafayette Ave'
+\item 'Clermont Ave \& Park Ave'
+\item 'Cleveland Pl \& Spring St'
+\item 'Cliff St \& Fulton St'
+\item 'Clinton Ave \& Flushing Ave'
+\item 'Clinton Ave \& Myrtle Ave'
+\item 'Clinton St \& 4 Place'
+\item 'Clinton St \& Centre St'
+\item 'Clinton St \& Grand St'
+\item 'Clinton St \& Joralemon St'
+\item 'Clinton St \& Tillary St'
+\item 'Clinton St \& Union St'
+\item 'Coffey St \& Conover St'
+\item 'Columbia Heights \& Cranberry St'
+\item 'Columbia St \& Degraw St'
+\item 'Columbia St \& Kane St'
+\item 'Columbia St \& Lorraine St'
+\item 'Columbia St \& Rivington St'
+\item 'Columbia St \& W 9 St'
+\item 'Columbus Ave \& W 103 St'
+\item 'Columbus Ave \& W 72 St'
+\item 'Columbus Ave \& W 95 St'
+\item 'Commerce St \& Van Brunt St'
+\item 'Concord St \& Bridge St'
+\item 'Congress St \& Clinton St'
+\item 'Cooper Square \& E 7 St'
+\item 'Court St \& Nelson St'
+\item 'Court St \& State St'
+\item 'Cumberland St \& Lafayette Ave'
+\item 'Dean St \& 4 Ave'
+\item 'Dean St \& Hoyt St'
+\item 'Degraw St \& Hoyt St'
+\item 'Degraw St \& Smith St'
+\item 'DeKalb Ave \& Hudson Ave'
+\item 'DeKalb Ave \& S Portland Ave'
+\item 'DeKalb Ave \& Skillman St'
+\item 'DeKalb Ave \& Vanderbilt Ave'
+\item 'Devoe St \& Lorimer St'
+\item 'Division Ave \& Hooper St'
+\item 'Division Ave \& Marcy Ave'
+\item 'Division St \& Bowery'
+\item 'Douglass St \& 3 Ave'
+\item 'Douglass St \& 4 Ave'
+\item 'Driggs Ave \& Lorimer St'
+\item 'Driggs Ave \& N Henry St'
+\item 'Duane St \& Greenwich St'
+\item 'Duffield St \& Willoughby St'
+\item 'Dwight St \& Van Dyke St'
+\item 'E 10 St \& 5 Ave'
+\item 'E 10 St \& Avenue A'
+\item 'E 102 St \& 1 Ave'
+\item 'E 102 St \& Park Ave'
+\item 'E 103 St \& Lexington Ave'
+\item 'E 106 St \& 1 Ave'
+\item 'E 106 St \& Lexington Ave'
+\item 'E 106 St \& Madison Ave'
+\item 'E 109 St \& 3 Ave'
+\item 'E 11 St \& 1 Ave'
+\item 'E 11 St \& 2 Ave'
+\item 'E 11 St \& Broadway'
+\item 'E 110 St \& Madison Ave'
+\item 'E 12 St \& 3 Ave'
+\item 'E 13 St \& Avenue A'
+\item 'E 14 St \& Avenue B'
+\item 'E 15 St \& 3 Ave'
+\item 'E 16 St \& 5 Ave'
+\item 'E 16 St \& Irving Pl'
+\item 'E 17 St \& Broadway'
+\item 'E 19 St \& 3 Ave'
+\item 'E 2 St \& 2 Ave'
+\item 'E 2 St \& 2 Ave E'
+\item 'E 2 St \& Avenue B'
+\item 'E 2 St \& Avenue C'
+\item 'E 20 St \& 2 Ave'
+\item 'E 20 St \& FDR Drive'
+\item 'E 20 St \& Park Ave'
+\item 'E 23 St \& 1 Ave'
+\item 'E 24 St \& Park Ave S'
+\item 'E 25 St \& 1 Ave'
+\item 'E 25 St \& 2 Ave'
+\item 'E 27 St \& 1 Ave'
+\item 'E 3 St \& 1 Ave'
+\item 'E 30 St \& Park Ave S'
+\item 'E 31 St \& 3 Ave'
+\item 'E 32 St \& Park Ave'
+\item 'E 33 St \& 2 Ave'
+\item 'E 33 St \& 5 Ave'
+\item 'E 35 St \& 3 Ave'
+\item 'E 39 St \& 2 Ave'
+\item 'E 39 St \& 3 Ave'
+\item 'E 4 St \& 2 Ave'
+\item 'E 40 St \& 5 Ave'
+\item 'E 41 St \& Madison Ave'
+\item 'E 43 St \& 2 Ave'
+\item 'E 44 St \& 2 Ave'
+\item 'E 45 St \& 3 Ave'
+\item 'E 47 St \& 1 Ave'
+\item 'E 47 St \& 2 Ave'
+\item 'E 47 St \& Park Ave'
+\item 'E 48 St \& 3 Ave'
+\item 'E 48 St \& 5 Ave'
+\item 'E 5 St \& Avenue C'
+\item 'E 51 St \& 1 Ave'
+\item 'E 51 St \& Lexington Ave'
+\item 'E 52 St \& 2 Ave'
+\item 'E 53 St \& 3 Ave'
+\item 'E 53 St \& Lexington Ave'
+\item 'E 53 St \& Madison Ave'
+\item 'E 55 St \& 2 Ave'
+\item 'E 55 St \& 3 Ave'
+\item 'E 55 St \& Lexington Ave'
+\item 'E 58 St \& 1 Ave'
+\item 'E 58 St \& 3 Ave'
+\item 'E 58 St \& Madison Ave'
+\item 'E 59 St \& Madison Ave'
+\item 'E 6 St \& Avenue B'
+\item 'E 6 St \& Avenue D'
+\item 'E 60 St \& York Ave'
+\item 'E 61 St \& Park Ave'
+\item 'E 65 St \& 2 Ave'
+\item 'E 66 St \& Madison Ave'
+\item 'E 67 St \& Park Ave'
+\item 'E 68 St \& 3 Ave'
+\item 'E 68 St \& Madison Ave'
+\item 'E 7 St \& Avenue A'
+\item 'E 71 St \& 1 Ave'
+\item 'E 72 St \& Park Ave'
+\item 'E 72 St \& York Ave'
+\item 'E 74 St \& 1 Ave'
+\item 'E 75 St \& 3 Ave'
+\item 'E 76 St \& 3 Ave'
+\item 'E 76 St \& Park Ave'
+\item 'E 78 St \& 2 Ave'
+\item 'E 80 St \& 2 Ave'
+\item 'E 81 St \& 3 Ave'
+\item 'E 81 St \& Park Ave'
+\item 'E 81 St \& York Ave'
+\item 'E 82 St \& East End Ave'
+\item 'E 84 St \& 1 Ave'
+\item 'E 84 St \& Park Ave'
+\item 'E 85 St \& 3 Ave'
+\item 'E 85 St \& York Ave'
+\item 'E 88 St \& 1 Ave'
+\item 'E 88 St \& Park Ave'
+\item 'E 89 St \& 3 Ave'
+\item 'E 89 St \& York Ave'
+\item 'E 9 St \& Avenue C'
+\item 'E 91 St \& 2 Ave'
+\item 'E 91 St \& Park Ave'
+\item 'E 95 St \& 3 Ave'
+\item 'E 97 St \& 3 Ave'
+\item 'E 97 St \& Madison Ave'
+\item 'East End Ave \& E 86 St'
+\item 'Eckford St \& Engert Ave'
+\item 'Emerson Pl \& Myrtle Ave'
+\item 'FDR Drive \& E 35 St'
+\item 'Forsyth St \& Broome St'
+\item 'Forsyth St \& Canal St'
+\item 'Franklin Ave \& Myrtle Ave'
+\item 'Franklin St \& Dupont St'
+\item 'Franklin St \& W Broadway'
+\item 'Front St \& Gold St'
+\item 'Front St \& Maiden Ln'
+\item 'Front St \& Washington St'
+\item 'Frost St \& Meeker St'
+\item 'Fulton St \& Adams St'
+\item 'Fulton St \& Broadway'
+\item 'Fulton St \& Clermont Ave'
+\item 'Fulton St \& Grand Ave'
+\item 'Fulton St \& Rockwell Pl'
+\item 'Fulton St \& Utica Ave'
+\item 'Fulton St \& Washington Ave'
+\item 'Fulton St \& William St'
+\item 'Garfield Pl \& 8 Ave'
+\item 'Graham Ave \& Conselyea St'
+\item 'Graham Ave \& Grand St'
+\item 'Graham Ave \& Herbert St'
+\item 'Graham Ave \& Withers St'
+\item 'Grand Army Plaza \& Central Park S'
+\item 'Grand Army Plaza \& Plaza St West'
+\item 'Grand St \& Elizabeth St'
+\item 'Grand St \& Greene St'
+\item 'Grand St \& Havemeyer St'
+\item 'Great Jones St'
+\item 'Greene Ave \& Nostrand Ave'
+\item 'Greene Ave \& Throop Ave'
+\item 'Greenpoint Ave \& Manhattan Ave'
+\item 'Greenwich Ave \& 8 Ave'
+\item 'Greenwich Ave \& Charles St'
+\item 'Greenwich St \& Hubert St'
+\item 'Greenwich St \& W Houston St'
+\item 'Greenwich St \& Warren St'
+\item 'Halsey St \& Tompkins Ave'
+\item 'Hancock St \& Bedford Ave'
+\item 'Hanson Pl \& Ashland Pl'
+\item 'Harrison St \& Hudson St'
+\item 'Henry St \& Atlantic Ave'
+\item 'Henry St \& Bay St'
+\item 'Henry St \& Degraw St'
+\item 'Henry St \& Grand St'
+\item 'Henry St \& Poplar St'
+\item 'Henry St \& W 9 St'
+\item 'Hicks St \& Montague St'
+\item 'Hope St \& Union Ave'
+\item 'Howard St \& Centre St'
+\item 'Hoyt St \& Warren St'
+\item 'Hudson St \& Reade St'
+\item 'Humboldt St \& Varet St'
+\item 'Huron St \& Franklin St'
+\item 'India St \& East River'
+\item 'India St \& Manhattan Ave'
+\item 'India St \& West St'
+\item 'Industry City, Building 1 Basement'
+\item 'Jackson Ave \& 46 Rd'
+\item 'Jackson St \& Leonard St'
+\item 'Jay St \& Tech Pl'
+\item 'John St \& William St'
+\item 'Johnson St \& Gold St'
+\item 'Kane St \& Clinton St'
+\item 'Kent Ave \& N 7 St'
+\item 'Kent Ave \& S 11 St'
+\item 'Kingston Ave \& Herkimer St'
+\item 'Kosciuszko St \& Nostrand Ave'
+\item 'Kosciuszko St \& Tompkins Ave'
+\item 'Lafayette Ave \& Classon Ave'
+\item 'Lafayette Ave \& Fort Greene Pl'
+\item 'Lafayette Ave \& St James Pl'
+\item 'Lafayette St \& E 8 St'
+\item 'Lafayette St \& Jersey St'
+\item 'LaGuardia Pl \& W 3 St'
+\item 'Laight St \& Hudson St'
+\item 'Lawrence St \& Willoughby St'
+\item 'Lefferts Pl \& Franklin Ave'
+\item 'Leonard St \& Boerum St'
+\item 'Leonard St \& Church St'
+\item 'Leonard St \& Maujer St'
+\item 'Lewis Ave \& Decatur St'
+\item 'Lewis Ave \& Kosciuszko St'
+\item 'Lewis Ave \& Madison St'
+\item 'Lexington Ave \& Classon Ave'
+\item 'Lexington Ave \& E 24 St'
+\item 'Lexington Ave \& E 29 St'
+\item 'Lexington Ave \& E 63 St'
+\item 'Liberty St \& Broadway'
+\item 'Lispenard St \& Broadway'
+\item 'Little West St \& 1 Pl'
+\item 'Lorimer St \& Broadway'
+\item 'MacDougal St \& Prince St'
+\item 'MacDougal St \& Washington Sq'
+\item 'Macon St \& Nostrand Ave'
+\item 'Madison Ave \& E 82 St'
+\item 'Madison Ave \& E 99 St'
+\item 'Madison St \& Clinton St'
+\item 'Madison St \& Montgomery St'
+\item 'Maiden Ln \& Pearl St'
+\item 'Marcus Garvey Blvd \& Macon St'
+\item 'Marcy Ave \& Lafayette Ave'
+\item 'Market St \& Cherry St'
+\item 'McGuinness Blvd \& Eagle St'
+\item 'McKibbin St \& Manhattan Ave'
+\item 'Mercer St \& Bleecker St'
+\item 'Mercer St \& Spring St'
+\item 'Meserole Ave \& Manhattan Ave'
+\item 'Metropolitan Ave \& Bedford Ave'
+\item 'Metropolitan Ave \& Meeker Ave'
+\item 'Milton St \& Franklin St'
+\item 'Monroe St \& Bedford Ave'
+\item 'Monroe St \& Classon Ave'
+\item 'Monroe St \& Tompkins Ave'
+\item 'Montague St \& Clinton St'
+\item 'Montrose Ave \& Bushwick Ave'
+\item 'Mott St \& Prince St'
+\item 'Murray St \& Greenwich St'
+\item 'Murray St \& West St'
+\item 'Myrtle Ave \& Lewis Ave'
+\item 'Myrtle Ave \& Marcy Ave'
+\item 'Myrtle Ave \& St Edwards St'
+\item 'N 11 St \& Wythe Ave'
+\item 'N 12 St \& Bedford Ave'
+\item 'N 15 St \& Wythe Ave'
+\item 'N 6 St \& Bedford Ave'
+\item 'N 8 St \& Driggs Ave'
+\item 'Nassau Ave \& Newell St'
+\item 'Nassau Ave \& Russell St'
+\item 'Nassau St \& Navy St'
+\item 'Norfolk St \& Broome St'
+\item 'Norman Ave \& Leonard St'
+\item 'Norman Ave \& Leonard St - 2'
+\item 'Nostrand Ave \& Myrtle Ave'
+\item 'NYCBS Depot - SSP'
+\item 'NYCBS Depot - STY'
+\item 'NYCBS Depot - STY - Garage 4'
+\item 'Old Fulton St'
+\item 'Old Slip \& Front St'
+\item 'Pacific St \& Nevins St'
+\item 'Park Ave \& Marcus Garvey Blvd'
+\item 'Park Ave \& St Edwards St'
+\item 'Pearl St \& Anchorage Pl'
+\item 'Pearl St \& Hanover Square'
+\item 'Peck Slip \& Front St'
+\item 'Penn Station Valet'
+\item 'Penn Station Valet - Valet Scan'
+\item 'Perry St \& Bleecker St'
+\item 'Pershing Square North'
+\item 'Pershing Square South'
+\item 'Pier 40 - Hudson River Park'
+\item 'Pike St \& E Broadway'
+\item 'Pike St \& Monroe St'
+\item 'Pioneer St \& Richards St'
+\item 'Pioneer St \& Van Brunt St'
+\item 'Pitt St \& Stanton St'
+\item 'Plaza St West \& Flatbush Ave'
+\item 'President St \& Henry St'
+\item 'Prospect Park West \& 8 St'
+\item 'Prospect Pl \& 6 Ave'
+\item 'Pulaski St \& Marcus Garvey Blvd'
+\item 'Putnam Ave \& Nostrand Ave'
+\item 'Putnam Ave \& Throop Ave'
+\item 'Queens Plaza North \& Crescent St'
+\item 'Railroad Ave \& Kay Ave'
+\item 'Reade St \& Broadway'
+\item 'Reed St \& Van Brunt St'
+\item 'Richards St \& Delavan St'
+\item 'Richardson St \& N Henry St'
+\item 'Riverside Blvd \& W 67 St'
+\item 'Riverside Dr \& W 104 St'
+\item 'Riverside Dr \& W 72 St'
+\item 'Riverside Dr \& W 78 St'
+\item 'Riverside Dr \& W 82 St'
+\item 'Riverside Dr \& W 89 St'
+\item 'Rivington St \& Chrystie St'
+\item 'Rivington St \& Ridge St'
+\item 'Roebling St \& N 4 St'
+\item 'S 3 St \& Bedford Ave'
+\item 'S 4 St \& Rodney St'
+\item 'S 4 St \& Wythe Ave'
+\item 'S 5 Pl \& S 4 St'
+\item 'S Portland Ave \& Hanson Pl'
+\item 'Sands St \& Navy St'
+\item 'Schermerhorn St \& 3 Ave'
+\item 'Schermerhorn St \& Court St'
+\item 'Scholes St \& Manhattan Ave'
+\item 'Sigourney St \& Columbia St'
+\item 'Smith St \& 3 St'
+\item 'Smith St \& 9 St'
+\item 'Soissons Landing'
+\item 'South End Ave \& Liberty St'
+\item 'South St \& Gouverneur Ln'
+\item 'South St \& Whitehall St'
+\item 'Spruce St \& Nassau St'
+\item 'St James Pl \& Oliver St'
+\item 'St James Pl \& Pearl St'
+\item 'St Marks Pl \& 1 Ave'
+\item 'St Marks Pl \& 2 Ave'
+\item 'Stagg St \& Union Ave'
+\item 'Stanton St \& Chrystie St'
+\item 'Stanton St \& Mangin St'
+\item 'State St \& Smith St'
+\item 'Suffolk St \& Stanton St'
+\item 'Sullivan St \& Washington Sq'
+\item 'Throop Ave \& Myrtle Ave'
+\item 'Tompkins Ave \& Hopkins St'
+\item 'Union Ave \& Jackson St'
+\item 'Union Ave \& N 12 St'
+\item 'Union Ave \& Wallabout St'
+\item 'Union St \& 4 Ave'
+\item 'Union St \& Nevins St'
+\item 'University Pl \& E 14 St'
+\item 'University Pl \& E 8 St'
+\item 'Van Brunt St \& Wolcott St'
+\item 'Vernon Blvd \& 50 Ave'
+\item 'Verona Pl \& Fulton St'
+\item 'Vesey Pl \& River Terrace'
+\item 'W 100 St \& Broadway'
+\item 'W 100 St \& Manhattan Ave'
+\item 'W 104 St \& Amsterdam Ave'
+\item 'W 106 St \& Amsterdam Ave'
+\item 'W 106 St \& Central Park West'
+\item 'W 107 St \& Columbus Ave'
+\item 'W 11 St \& 6 Ave'
+\item 'W 13 St \& 5 Ave'
+\item 'W 13 St \& 6 Ave'
+\item 'W 13 St \& 7 Ave'
+\item 'W 13 St \& Hudson St'
+\item 'W 14 St \& The High Line'
+\item 'W 15 St \& 10 Ave'
+\item 'W 15 St \& 7 Ave'
+\item 'W 16 St \& The High Line'
+\item 'W 17 St \& 8 Ave'
+\item 'W 18 St \& 6 Ave'
+\item 'W 20 St \& 11 Ave'
+\item 'W 20 St \& 7 Ave'
+\item 'W 20 St \& 8 Ave'
+\item 'W 21 St \& 6 Ave'
+\item 'W 22 St \& 10 Ave'
+\item 'W 22 St \& 8 Ave'
+\item 'W 24 St \& 7 Ave'
+\item 'W 25 St \& 6 Ave'
+\item 'W 26 St \& 10 Ave'
+\item 'W 26 St \& 8 Ave'
+\item 'W 27 St \& 10 Ave'
+\item 'W 27 St \& 7 Ave'
+\item 'W 31 St \& 7 Ave'
+\item 'W 33 St \& 7 Ave'
+\item 'W 34 St \& 11 Ave'
+\item 'W 37 St \& 10 Ave'
+\item 'W 37 St \& 5 Ave'
+\item 'W 37 St \& Broadway'
+\item 'W 38 St \& 8 Ave'
+\item 'W 39 St \& 9 Ave'
+\item 'W 4 St \& 7 Ave S'
+\item 'W 41 St \& 8 Ave'
+\item 'W 42 St \& 8 Ave'
+\item 'W 42 St \& Dyer Ave'
+\item 'W 43 St \& 10 Ave'
+\item 'W 43 St \& 6 Ave'
+\item 'W 44 St \& 5 Ave'
+\item 'W 45 St \& 6 Ave'
+\item 'W 45 St \& 8 Ave'
+\item 'W 46 St \& 11 Ave'
+\item 'W 47 St \& 10 Ave'
+\item 'W 49 St \& 8 Ave'
+\item 'W 52 St \& 11 Ave'
+\item 'W 52 St \& 5 Ave'
+\item 'W 52 St \& 6 Ave'
+\item 'W 52 St \& 9 Ave'
+\item 'W 53 St \& 10 Ave'
+\item 'W 54 St \& 9 Ave'
+\item 'W 55 St \& 6 Ave'
+\item 'W 56 St \& 10 Ave'
+\item 'W 59 St \& 10 Ave'
+\item 'W 63 St \& Broadway'
+\item 'W 64 St \& West End Ave'
+\item 'W 67 St \& Broadway'
+\item 'W 70 St \& Amsterdam Ave'
+\item 'W 74 St \& Columbus Ave'
+\item 'W 76 St \& Columbus Ave'
+\item 'W 78 St \& Broadway'
+\item 'W 82 St \& Central Park West'
+\item 'W 84 St \& Broadway'
+\item 'W 84 St \& Columbus Ave'
+\item 'W 87 St  \& Amsterdam Ave'
+\item 'W 88 St \& West End Ave'
+\item 'W 89 St \& Columbus Ave'
+\item 'W 90 St \& Amsterdam Ave'
+\item 'W 92 St \& Broadway'
+\item 'W 95 St \& Broadway'
+\item 'W Broadway \& Spring St'
+\item 'Warren St \& Church St'
+\item 'Warren St \& Court St'
+\item 'Washington Ave \& Greene Ave'
+\item 'Washington Ave \& Park Ave'
+\item 'Washington Park'
+\item 'Washington Pl \& 6 Ave'
+\item 'Washington Pl \& Broadway'
+\item 'Washington St \& Gansevoort St'
+\item 'Water - Whitehall Plaza'
+\item 'Watts St \& Greenwich St'
+\item 'West Drive \& Prospect Park West'
+\item 'West End Ave \& W 107 St'
+\item 'West End Ave \& W 94 St'
+\item 'West St \& Chambers St'
+\item 'West Thames St'
+\item 'William St \& Pine St'
+\item 'Willoughby Ave \& Hall St'
+\item 'Willoughby Ave \& Tompkins Ave'
+\item 'Willoughby Ave \& Walworth St'
+\item 'Willoughby St \& Fleet St'
+\item 'Wolcott St \& Dwight St'
+\item 'Wyckoff St \& 3 Ave'
+\item 'Wythe Ave \& Metropolitan Ave'
+\item 'Yankee Ferry Terminal'
+\item 'York St \& Jay St'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Washington's most common Start Station"
+
+    \end{Verbatim}
+
+    Columbus Circle / Union Station
+\emph{Levels}: \begin{enumerate*}
+\item ''
+\item '10th \& E St NW'
+\item '10th \& Florida Ave NW'
+\item '10th \& G St NW'
+\item '10th \& K St NW'
+\item '10th \& Monroe St NE'
+\item '10th \& U St NW'
+\item '10th St \& Constitution Ave NW'
+\item '10th St \& L\textbackslash{}'Enfant Plaza SW'
+\item '11th \& F St NW'
+\item '11th \& Girard St NW'
+\item '11th \& H St NE'
+\item '11th \& Kenyon St NW'
+\item '11th \& M St NW'
+\item '11th \& O St NW'
+\item '11th \& S St NW'
+\item '12th \& Army Navy Dr'
+\item '12th \& Irving St NE'
+\item '12th \& L St NW'
+\item '12th \& Newton St NE'
+\item '12th \& U St NW'
+\item '12th St \& Pennsylvania Ave SE'
+\item '13th \& D St NE'
+\item '13th \& H St NE'
+\item '13th St \& Eastern Ave'
+\item '13th St \& New York Ave NW'
+\item '14th \& Belmont St NW'
+\item '14th \& D St NW / Ronald Reagan Building'
+\item '14th \& D St SE'
+\item '14th \& G St NW'
+\item '14th \& Girard St NW'
+\item '14th \& Harvard St NW'
+\item '14th \& Irving St NW'
+\item '14th \& L St NW'
+\item '14th \& R St NW'
+\item '14th \& Rhode Island Ave NW'
+\item '14th \& Upshur St NW'
+\item '14th \& V St NW'
+\item '14th St \& Colorado Ave NW'
+\item '14th St \& New York Ave NW'
+\item '14th St \& Spring Rd NW'
+\item '14th St Heights / 14th \& Crittenden St NW'
+\item '15th \& Crystal Dr'
+\item '15th \& East Capitol St NE'
+\item '15th \& Euclid St  NW'
+\item '15th \& F St NE'
+\item '15th \& K St NW'
+\item '15th \& L St NW'
+\item '15th \& M St NW'
+\item '15th \& N Scott St'
+\item '15th \& P St NW'
+\item '15th \& W St NW'
+\item '15th St \& Constitution Ave NW'
+\item '15th St \& Massachusetts Ave SE'
+\item '16th \& Harvard St NW'
+\item '16th \& Irving St NW'
+\item '16th \& K St NW'
+\item '16th \& Q St SE / Anacostia HS'
+\item '16th \& R St NW'
+\item '17th \& Corcoran St NW'
+\item '17th \& G St NW'
+\item '17th \& K St NW'
+\item '17th \& K St NW / Farragut Square'
+\item '17th \& Rhode Island Ave NW'
+\item '17th St \& Independence Ave SW'
+\item '17th St \& Massachusetts Ave NW'
+\item '18th \& C St NW'
+\item '18th \& Eads St.'
+\item '18th \& M St NW'
+\item '18th \& Monroe St NE'
+\item '18th \& R St NW'
+\item '18th St \& Pennsylvania Ave NW'
+\item '18th St \& Rhode Island Ave NE'
+\item '18th St \& Wyoming Ave NW'
+\item '19th \& E Street NW'
+\item '19th \& East Capitol St SE'
+\item '19th \& G St NW'
+\item '19th \& K St NW'
+\item '19th \& L St NW'
+\item '19th St \& Constitution Ave NW'
+\item '19th St \& Pennsylvania Ave NW'
+\item '1st \& D St SE'
+\item '1st \& H St NW'
+\item '1st \& K St SE'
+\item '1st \& M St NE'
+\item '1st \& N St  SE'
+\item '1st \& O St NW'
+\item '1st \& Rhode Island Ave NW'
+\item '1st \& Washington Hospital Center NW'
+\item '20th \& Crystal Dr'
+\item '20th \& E St NW'
+\item '20th \& L St NW'
+\item '20th \& O St NW / Dupont South'
+\item '20th St \& Florida Ave NW'
+\item '20th St \& Virginia Ave NW'
+\item '21st \& I St NW'
+\item '21st \& M St NW'
+\item '21st St \& Constitution Ave NW'
+\item '21st St \& Pennsylvania Ave NW'
+\item '21st St N \& N Pierce St'
+\item '22nd \& I St NW / Foggy Bottom'
+\item '22nd \& P ST NW'
+\item '22nd St \& Constitution Ave NW'
+\item '23rd \& Crystal Dr'
+\item '23rd \& E St NW '
+\item '23rd \& Eads St'
+\item '24th \& N St NW'
+\item '24th \& R St NE / National Arboretum'
+\item '25th St \& Pennsylvania Ave NW'
+\item '26th \& S Clark St'
+\item '27th \& Crystal Dr'
+\item '28th St S \& S Meade St'
+\item '2nd \& G St NE'
+\item '2nd St \& Massachusetts Ave NE'
+\item '2nd St \& Seaton Pl NE'
+\item '3000 Connecticut Ave NW / National Zoo'
+\item '31st \& Water St NW'
+\item '31st \& Woodrow St S'
+\item '34th \& Water St NW'
+\item '34th St \& Wisconsin Ave NW'
+\item '36th \& Calvert St NW / Glover Park'
+\item '37th \& O St NW / Georgetown University'
+\item '39th \& Calvert St NW / Stoddert'
+\item '39th \& Veazey St NW'
+\item '3rd \& D St SE'
+\item '3rd \& Elm St NW'
+\item '3rd \& G St SE'
+\item '3rd \& H St NE'
+\item '3rd \& H St NW'
+\item '3rd \& Tingey St SE'
+\item '3rd \& Underwood St NW'
+\item '3rd St \& Pennsylvania Ave SE'
+\item '3rd St \& Riggs Rd NE'
+\item '47th \& Elm St'
+\item '4th \& C St SW'
+\item '4th \& D St NW / Judiciary Square'
+\item '4th \& E St SW'
+\item '4th \& East Capitol St NE'
+\item '4th \& Kennedy St NW'
+\item '4th \& M St SW'
+\item '4th \& W St NE'
+\item '4th St \& Madison Dr NW'
+\item '5th \& F St NW'
+\item '5th \& K St NW'
+\item '5th \& Kennedy St NW'
+\item '5th St \& Massachusetts Ave NW'
+\item '61st St \& Banks Pl NE'
+\item '6th \& H St NE'
+\item '6th \& K St NE'
+\item '6th \& S Ball St'
+\item '6th \& Water St SW / SW Waterfront'
+\item '6th St \& Indiana Ave NW'
+\item '7th \& E St SW'
+\item '7th \& F St NW/Portrait Gallery'
+\item '7th \& R St NW / Shaw Library'
+\item '7th \& T St NW'
+\item '8th \& D St NW'
+\item '8th \& East Capitol St NE'
+\item '8th \& Eye St SE / Barracks Row'
+\item '8th \& F St NE'
+\item '8th \& F St NW'
+\item '8th \& H St NW'
+\item '8th \& O St NW'
+\item '9th \& Upshur St NW'
+\item 'Adams Mill \& Columbia Rd NW'
+\item 'Alabama \& MLK Ave SE'
+\item 'Amherst Ave \& Elkins St'
+\item 'Amherst Ave \& Prichard Rd'
+\item 'Anacostia Ave \& Benning Rd NE / River Terrace '
+\item 'Anacostia Library'
+\item 'Anacostia Metro'
+\item 'Arlington Blvd \& Fillmore St'
+\item 'Arlington Blvd \& N Queen St'
+\item 'Arlington Blvd \& S George Mason Dr/NFATC'
+\item 'Army Navy Dr \& S Nash St'
+\item 'Aurora Hills Community Ctr/18th \& Hayes St'
+\item 'Ballenger Ave \& Dulaney St'
+\item 'Ballston Metro / N Stuart \& 9th St N'
+\item 'Barcroft Community Center'
+\item 'Barton St \& 10th St N'
+\item 'Battery Ln \& Trolley Trail'
+\item 'Benning Branch Library'
+\item 'Benning Rd \& East Capitol St NE / Benning Rd Metro'
+\item 'Bethesda Ave \& Arlington Rd'
+\item 'Bethesda Metro'
+\item 'Bladensburg Rd \& Benning Rd NE'
+\item 'Braddock Rd Metro'
+\item 'Branch \& Pennsylvania Ave SE'
+\item 'C \& O Canal \& Wisconsin Ave NW'
+\item 'California St \& Florida Ave NW'
+\item 'Calvert \& Biltmore St NW'
+\item 'Calvert St \& Woodley Pl NW'
+\item 'Carlin Springs Rd \& N Thomas St'
+\item 'Carroll \& Ethan Allen Ave'
+\item 'Carroll \& Westmoreland Ave'
+\item 'Central Library / N Quincy St \& 10th St N'
+\item 'Clarendon Blvd \& N Fillmore St'
+\item 'Clarendon Blvd \& Pierce St'
+\item 'Clarendon Metro / Wilson Blvd \& N Highland St'
+\item 'Columbia \& Ontario Rd NW'
+\item 'Columbia Pike \& S Courthouse Rd'
+\item 'Columbia Pike \& S Dinwiddie St / Arlington Mill Community Center'
+\item 'Columbia Pike \& S Orme St'
+\item 'Columbia Pike \& S Taylor St'
+\item 'Columbia Pike \& S Walter Reed Dr'
+\item 'Columbia Rd \& Belmont St NW'
+\item 'Columbia Rd \& Georgia Ave NW'
+\item 'Columbus Ave \& Gramercy Blvd'
+\item 'Columbus Ave \& Tribeca St'
+\item 'Columbus Circle / Union Station'
+\item 'Commerce St \& Fayette St'
+\item 'Commonwealth \& E Monroe Ave'
+\item 'Commonwealth Ave \& Oak St'
+\item 'Congress Heights Metro'
+\item 'Connecticut \& Nebraska Ave NW'
+\item 'Connecticut Ave \& Chevy Chase Lake Dr'
+\item 'Connecticut Ave \& Newark St NW / Cleveland Park'
+\item 'Connecticut Ave \& R St NW'
+\item 'Connecticut Ave \& Tilden St NW'
+\item 'Connecticut Ave \& Yuma St NW'
+\item 'Constitution Ave \& 2nd St NW/DOL'
+\item 'Convention Center / 7th \& M St NW'
+\item 'Cordell \& Norfolk Ave'
+\item 'Court House Metro / 15th \& N Uhle St '
+\item 'Crabbs Branch Way \& Calhoun Pl'
+\item 'Crabbs Branch Way \& Redland Rd'
+\item 'Crystal City Metro / 18th \& Bell St'
+\item 'D St \& Maryland Ave NE'
+\item 'Deanwood Rec Center'
+\item 'Dennis \& Amherst Ave'
+\item 'Division Ave \& Foote St NE'
+\item 'Duke St \& John Carlyle St'
+\item 'E Montgomery Ave \& Maryland Ave'
+\item 'Eads \& 22nd St S'
+\item 'Eads St \& 15th St S'
+\item 'East Falls Church Metro/Sycamore St \& 19th St N'
+\item 'East West Hwy \& 16th St'
+\item 'East West Hwy \& Blair Mill Rd'
+\item 'Eastern Market / 7th \& North Carolina Ave SE'
+\item 'Eastern Market Metro / Pennsylvania Ave \& 7th St SE'
+\item 'Eckington Pl \& Q St NE'
+\item 'Eisenhower Ave \& Mill Race Ln'
+\item 'Fairfax Dr \& Kenmore St'
+\item 'Fairfax Dr \& Wilson Blvd'
+\item 'Fairfax Village'
+\item 'Fallsgrove Blvd \& Fallsgrove Dr'
+\item 'Fallsgrove Dr \& W Montgomery Ave'
+\item 'Fenton St \& Ellsworth Dr '
+\item 'Fenton St \& Gist Ave'
+\item 'Fenton St \& New York Ave '
+\item 'Fessenden St \& Wisconsin Ave NW'
+\item 'Fleet St \& Ritchie Pkwy'
+\item 'Florida Ave \& R St NW'
+\item 'Fort Totten Metro'
+\item 'Franklin \& S Washington St'
+\item 'Frederick Ave \& Horners Ln'
+\item 'Friendship Blvd \& Willard Ave'
+\item 'Friendship Hts Metro/Wisconsin Ave \& Wisconsin Cir'
+\item 'Gallaudet / 8th St \& Florida Ave NE'
+\item 'Garland Ave \& Walden Rd'
+\item 'George Mason Dr \& Wilson Blvd'
+\item 'Georgetown Harbor / 30th St NW'
+\item 'Georgia \& Missouri Ave NW'
+\item 'Georgia \& New Hampshire Ave NW'
+\item 'Georgia Ave \& Emerson St NW'
+\item 'Georgia Ave \& Piney Branch Rd NW'
+\item 'Georgia Ave \& Spring St'
+\item 'Georgia Ave and Fairmont St NW'
+\item 'Glebe Rd \& 11th St N'
+\item 'Good Hope \& Naylor Rd SE'
+\item 'Good Hope Rd \& 14th St SE'
+\item 'Good Hope Rd \& MLK Ave SE'
+\item 'Grandview \& Blueridge Ave'
+\item 'Greensboro \& International Dr'
+\item 'Hains Point/Buckeye \& Ohio Dr SW'
+\item 'Hamlin \& 7th St NE'
+\item 'Harvard St \& Adams Mill Rd NW'
+\item 'Henry Bacon Dr \& Lincoln Memorial Circle NW'
+\item 'Henry St \& Pendleton St'
+\item 'Independence Ave \& L\textbackslash{}'Enfant Plaza SW/DOE'
+\item 'Iwo Jima Memorial/N Meade \& 14th St N'
+\item 'Jefferson Dr \& 14th St SW'
+\item 'Jefferson Memorial'
+\item 'John McCormack Dr \& Michigan Ave NE'
+\item 'Jones Branch \& Westbranch Dr'
+\item 'Kennebec St \& 11th St N'
+\item 'Kennedy Center'
+\item 'Key Blvd \& N Quinn St'
+\item 'Key West Ave \& Great Seneca Hwy'
+\item 'Key West Ave \& Siesta Key Way'
+\item 'King Farm Blvd \& Piccard Dr'
+\item 'King Farm Blvd \& Pleasant Dr'
+\item 'King St \& Patrick St'
+\item 'King St Metro North / Cameron St'
+\item 'King St Metro South'
+\item 'L\textbackslash{}'Enfant Plaza / 7th \& C St SW'
+\item 'Lamont \& Mt Pleasant NW'
+\item 'Lee Center'
+\item 'Lee Hwy \& N Adams St'
+\item 'Lee Hwy \& N Cleveland St'
+\item 'Lee Hwy \& N Kirkwood Rd'
+\item 'Lee Hwy \& N Monroe St'
+\item 'Lee Hwy \& N Scott St'
+\item 'Lee Hwy \& N Woodstock St'
+\item 'Library St \& Freedom Dr'
+\item 'Lincoln Memorial'
+\item 'Lincoln Park / 13th \& East Capitol St NE '
+\item 'Long Bridge Park/Long Bridge Dr \& 6th St S'
+\item 'Lynn \& 19th St North'
+\item 'Lyttonsville Rd \& Lyttonsville Pl'
+\item 'M St \& Delaware Ave NE'
+\item 'M St \& New Jersey Ave SE'
+\item 'M St \& Pennsylvania Ave NW'
+\item 'Madison \& Fairfax St'
+\item 'Madison \& N Henry St'
+\item 'Maine Ave \& 7th St SW'
+\item 'Maple \& Ritchie Ave'
+\item 'Market Square / King St \& Royal St'
+\item 'Maryland \& Independence Ave SW'
+\item 'Maryland Ave \& E St NE'
+\item 'Massachusetts Ave \& Dupont Circle NW'
+\item 'McKinley St \& Connecticut Ave NW'
+\item 'Medical Center Dr \& Key West Ave'
+\item 'Medical Center Metro '
+\item 'Metro Center / 12th \& G St NW'
+\item 'Minnesota Ave Metro/DOES'
+\item 'Monroe Ave \& Leslie Ave'
+\item 'Monroe St \& Monroe Pl'
+\item 'Montgomery \& East Ln'
+\item 'Montgomery Ave \& Waverly St '
+\item 'Montgomery College/W Campus Dr \& Mannakee St'
+\item 'Mount Vernon Ave \& Bruce St'
+\item 'Mount Vernon Ave \& E Del Ray Ave'
+\item 'Mount Vernon Ave \& E Nelson Ave'
+\item 'Mount Vernon Ave \& Four Mile Run Park'
+\item 'Mount Vernon Ave \& Kennedy St'
+\item 'N Lynn St \& Fairfax Dr'
+\item 'N Pershing Dr \& Wayne St'
+\item 'N Quincy St \& Glebe Rd'
+\item 'N Randolph St \& Fairfax Dr'
+\item 'N Rhodes \& 16th St N'
+\item 'N Veitch  \& 20th St N'
+\item 'N Veitch \& Key Blvd'
+\item 'Nannie Helen Burroughs \& Minnesota Ave NE'
+\item 'Nannie Helen Burroughs Ave \& 49th St NE'
+\item 'Neal St \& Trinidad Ave NE'
+\item 'Nebraska Ave/AU East Campus'
+\item 'Needwood Rd \& Eagles Head Ct'
+\item 'New Dominion Pkwy \& Fountain Dr'
+\item 'New Hampshire \& Kirklynn Ave'
+\item 'New Hampshire Ave \& 24th St NW'
+\item 'New Hampshire Ave \& T St NW'
+\item 'New Jersey Ave \& L St NW'
+\item 'New Jersey Ave \& N St NW/Dunbar HS'
+\item 'New Jersey Ave \& R St NW'
+\item 'New York Ave \& 15th St NW'
+\item 'New York Ave \& Hecht Ave NE'
+\item 'Norfolk \& Rugby Ave'
+\item 'Norfolk Ave \& Fairmont St'
+\item 'North Capitol St \& F St NW'
+\item 'North Capitol St \& G Pl NE'
+\item 'North Shore \& Cameron Crescent Dr/Crescent Apartments'
+\item 'North Shore Dr \& Village Rd'
+\item 'Offutt Ln \& Chevy Chase Dr'
+\item 'Ohio Dr \& West Basin Dr SW / MLK \& FDR Memorials'
+\item 'Oklahoma Ave \& D St NE'
+\item 'Old Georgetown Rd \& Southwick St'
+\item 'Park Rd \& Holmead Pl NW'
+\item 'Pennsylvania \& Minnesota Ave SE'
+\item 'Pentagon City Metro / 12th \& S Hayes St'
+\item 'Pershing \& N George Mason Dr'
+\item 'Philadelphia \& Maple Ave'
+\item 'Piccard \& W Gude Dr'
+\item 'Pleasant St \& MLK Ave SE'
+\item 'Potomac \& M St NW'
+\item 'Potomac \& Pennsylvania Ave SE'
+\item 'Potomac \& Swann Ave'
+\item 'Potomac Ave \& 35th St S'
+\item 'Potomac Ave \& 8th St SE'
+\item 'Potomac Ave \& Main Line Blvd'
+\item 'Potomac Greens Dr \& Slaters Ln'
+\item 'Powhatan St \& Bashford Ln'
+\item 'Prince St \& Union St'
+\item 'Radford \& Osage St'
+\item 'Randle Circle \& Minnesota Ave SE'
+\item 'Reston Pkwy \& Spectrum Dr'
+\item 'Reston Regional Library'
+\item 'Reston Station'
+\item 'Reston Town Center Transit Station'
+\item 'Reston YMCA'
+\item 'Rhode Island \& Connecticut Ave NW'
+\item 'Rhode Island Ave \& V St NE'
+\item 'Rhode Island Ave Metro'
+\item 'Ripley \& Bonifant St'
+\item 'River Rd \& Landy Ln'
+\item 'Rockville Metro East'
+\item 'Rockville Metro West'
+\item 'Rolfe St \& 9th St S'
+\item 'Rosslyn Metro / Wilson Blvd \& Ft Myer Dr'
+\item 'Royal \& Wilkes St'
+\item 'S Arlington Mill Dr \& Campbell Ave'
+\item 'S Four Mile Run \& Walter Reed Dr'
+\item 'S Four Mile Run Dr \& S Shirlington Rd'
+\item 'S George Mason Dr \& 13th St S'
+\item 'S George Mason Dr \& Four Mile Run'
+\item 'S Glebe \& Potomac Ave'
+\item 'S Joyce \& 16th St S'
+\item 'S Joyce \& Army Navy Dr'
+\item 'S Kenmore \& 24th St S'
+\item 'S Oakland St \& Columbia Pike'
+\item 'S Stafford \& 34th St S'
+\item 'S Troy St \& 26th St S'
+\item 'S Walter Reed Dr \& 8th St S'
+\item 'Saint Asaph \& Madison St'
+\item 'Saint Asaph St \& Pendleton  St'
+\item 'Shady Grove Hospital'
+\item 'Shady Grove Metro East'
+\item 'Shady Grove Metro West'
+\item 'Shirlington Transit Center / S Quincy \& Randolph St'
+\item 'Silver Spring Metro/Colesville Rd \& Wayne Ave'
+\item 'Sligo Ave \& Carroll Ln'
+\item 'Smithsonian-National Mall / Jefferson Dr \& 12th St SW'
+\item 'Solutions \& Greensboro Dr'
+\item 'South Capitol \& Atlantic St SW'
+\item 'Spring Hill Metro'
+\item 'Spring St \& Second Ave'
+\item 'Sunset Hills \& Old Reston Ave'
+\item 'Sunset Hills Rd \& Discovery Square'
+\item 'Sunset Hills Rd \& Isaac Newton Square'
+\item 'Taft St \& E Gude Dr'
+\item 'Takoma Metro'
+\item 'Takoma Park Rec Center'
+\item 'Temporary Rd \& Old Reston Ave'
+\item 'Tenleytown / Wisconsin Ave \& Albemarle St NW'
+\item 'Thomas Circle'
+\item 'TJ Cmty Ctr / 2nd St \& S Old Glebe Rd'
+\item 'Towers Crescent Dr \& Tysons One Pl'
+\item 'Town Center Pkwy \& Bowman Towne Dr'
+\item 'Town Center Pkwy \& Sunset Hills Rd'
+\item 'Traville Gateway Dr \& Gudelsky Dr'
+\item 'Tysons Corner Station'
+\item 'Tysons One Pl \& Chain Bridge Rd'
+\item 'Tysons West Transit Center'
+\item 'Union Market/6th St \& Neal Pl NE'
+\item 'US Dept of State / Virginia Ave \& 21st St NW'
+\item 'USDA / 12th \& Independence Ave SW'
+\item 'Utah St \& 11th St N '
+\item 'Van Ness Metro / UDC'
+\item 'Veterans Pl \& Pershing Dr '
+\item 'Virginia Ave \& 25th St NW'
+\item 'Virginia Square Metro / N Monroe St \& 9th St N'
+\item 'Walter Reed Community Center / Walter Reed Dr \& 16th St S'
+\item 'Ward Circle / American University'
+\item 'Washington \& Independence Ave SW/HHS'
+\item 'Washington Adventist U / Flower Ave \& Division St'
+\item 'Washington Blvd \& 10th St N'
+\item 'Washington Blvd \& 7th St N'
+\item 'Washington Blvd \& N Frederick St'
+\item 'Washington Blvd \& Walter Reed Dr '
+\item 'Washington-Lee High School / N Stafford St \& Generals Way'
+\item 'Westover Library / Washington Blvd \& N McKinley Rd'
+\item 'Westpark \& Jones Branch Dr'
+\item 'Westpark \& Park Run Dr'
+\item 'Westpark Dr \& Leesburg Pike'
+\item 'Wheaton Metro/Georgia Ave \& Reedie Dr'
+\item 'Wilson Blvd \& Franklin Rd'
+\item 'Wilson Blvd \& N Edgewood St'
+\item 'Wilson Blvd \& N Illinois St '
+\item 'Wilson Blvd \& N Quincy St'
+\item 'Wilson Blvd \& N Troy St'
+\item 'Wilson Blvd \& N Uhle St'
+\item 'Windham Ln \& Amherst Ave'
+\item 'Wisconsin Ave \& Brandywine St NW'
+\item 'Wisconsin Ave \& Ingomar St NW'
+\item 'Wisconsin Ave \& Newark St NW'
+\item 'Wisconsin Ave \& O St NW'
+\item 'Woodmont Ave \& Strathmore St'
+\item 'Yuma St \& Tenley Circle NW'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Chicago's most common Start Station"
+
+    \end{Verbatim}
+
+    Streeter Dr \& Grand Ave
+\emph{Levels}: \begin{enumerate*}
+\item '2112 W Peterson Ave'
+\item '63rd St Beach'
+\item '900 W Harrison St'
+\item 'Aberdeen St \& Jackson Blvd'
+\item 'Aberdeen St \& Monroe St'
+\item 'Ada St \& Washington Blvd'
+\item 'Adler Planetarium'
+\item 'Albany (Kedzie) Ave \& Montrose Ave'
+\item 'Albany Ave \& Bloomingdale Ave'
+\item 'Artesian Ave \& Hubbard St'
+\item 'Ashland Ave \& 13th St'
+\item 'Ashland Ave \& 21st St'
+\item 'Ashland Ave \& Archer Ave'
+\item 'Ashland Ave \& Augusta Blvd'
+\item 'Ashland Ave \& Belle Plaine Ave'
+\item 'Ashland Ave \& Blackhawk St'
+\item 'Ashland Ave \& Chicago Ave'
+\item 'Ashland Ave \& Division St'
+\item 'Ashland Ave \& Grace St'
+\item 'Ashland Ave \& Grand Ave'
+\item 'Ashland Ave \& Harrison St'
+\item 'Ashland Ave \& Lake St'
+\item 'Ashland Ave \& Wellington Ave'
+\item 'Ashland Ave \& Wrightwood Ave'
+\item 'Austin Blvd \& Chicago Ave'
+\item 'Avers Ave \& Belmont Ave'
+\item 'Avondale Ave \& Irving Park Rd'
+\item 'Benson Ave \& Church St'
+\item 'Bissell St \& Armitage Ave'
+\item 'Blackstone Ave \& Hyde Park Blvd'
+\item 'Blue Island Ave \& 18th St'
+\item 'Bosworth Ave \& Howard St'
+\item 'Broadway \& Argyle St'
+\item 'Broadway \& Barry Ave'
+\item 'Broadway \& Belmont Ave'
+\item 'Broadway \& Berwyn Ave'
+\item 'Broadway \& Cornelia Ave'
+\item 'Broadway \& Granville Ave'
+\item 'Broadway \& Ridge Ave'
+\item 'Broadway \& Sheridan Rd'
+\item 'Broadway \& Thorndale Ave'
+\item 'Broadway \& Waveland Ave'
+\item 'Broadway \& Wilson Ave'
+\item 'Buckingham Fountain'
+\item 'Budlong Woods Library'
+\item 'Burnham Harbor'
+\item 'California Ave \& 21st St'
+\item 'California Ave \& 23rd Pl'
+\item 'California Ave \& 26th St'
+\item 'California Ave \& Altgeld St'
+\item 'California Ave \& Cortez St'
+\item 'California Ave \& Division St'
+\item 'California Ave \& Fletcher St'
+\item 'California Ave \& Francis Pl'
+\item 'California Ave \& Lake St'
+\item 'California Ave \& Milwaukee Ave'
+\item 'California Ave \& Montrose Ave'
+\item 'California Ave \& North Ave'
+\item 'Calumet Ave \& 18th St'
+\item 'Calumet Ave \& 21st St'
+\item 'Calumet Ave \& 33rd St'
+\item 'Calumet Ave \& 35th St'
+\item 'Campbell Ave \& Fullerton Ave'
+\item 'Campbell Ave \& Montrose Ave'
+\item 'Campbell Ave \& North Ave'
+\item 'Canal St \& Adams St'
+\item 'Canal St \& Harrison St'
+\item 'Canal St \& Madison St'
+\item 'Canal St \& Monroe St (*)'
+\item 'Canal St \& Taylor St'
+\item 'Cannon Dr \& Fullerton Ave'
+\item 'Carpenter St \& Huron St'
+\item 'Central Park Ave \& Elbridge Ave'
+\item 'Central Park Ave \& North Ave'
+\item 'Central Park Ave \& Ogden Ave'
+\item 'Central St \& Girard Ave'
+\item 'Central St Metra'
+\item 'Chicago Ave \& Sheridan Rd'
+\item 'Chicago Ave \& Washington St'
+\item 'Christiana Ave \& Lawrence Ave'
+\item 'Cityfront Plaza Dr \& Pioneer Ct'
+\item 'Claremont Ave \& Hirsch St'
+\item 'Clarendon Ave \& Gordon Ter'
+\item 'Clarendon Ave \& Junior Ter'
+\item 'Clarendon Ave \& Leland Ave'
+\item 'Clark St \& 9th St (AMLI)'
+\item 'Clark St \& Armitage Ave'
+\item 'Clark St \& Berwyn Ave'
+\item 'Clark St \& Bryn Mawr Ave'
+\item 'Clark St \& Chicago Ave'
+\item 'Clark St \& Columbia Ave'
+\item 'Clark St \& Congress Pkwy'
+\item 'Clark St \& Elm St'
+\item 'Clark St \& Elmdale Ave'
+\item 'Clark St \& Grace St'
+\item 'Clark St \& Jarvis Ave'
+\item 'Clark St \& Lake St'
+\item 'Clark St \& Leland Ave'
+\item 'Clark St \& Lincoln Ave'
+\item 'Clark St \& Lunt Ave'
+\item 'Clark St \& Montrose Ave'
+\item 'Clark St \& North Ave'
+\item 'Clark St \& Randolph St'
+\item 'Clark St \& Schiller St'
+\item 'Clark St \& Schreiber Ave'
+\item 'Clark St \& Touhy Ave'
+\item 'Clark St \& Wellington Ave'
+\item 'Clark St \& Winnemac Ave'
+\item 'Clark St \& Wrightwood Ave'
+\item 'Clifton Ave \& Armitage Ave'
+\item 'Clifton Ave \& Lawrence Ave'
+\item 'Clinton St \& 18th St'
+\item 'Clinton St \& Jackson Blvd'
+\item 'Clinton St \& Lake St'
+\item 'Clinton St \& Madison St'
+\item 'Clinton St \& Polk St (*)'
+\item 'Clinton St \& Roosevelt Rd'
+\item 'Clinton St \& Tilden St'
+\item 'Clinton St \& Washington Blvd'
+\item 'Clybourn Ave \& Division St'
+\item 'Columbus Dr \& Randolph St'
+\item 'Conservatory Dr \& Lake St'
+\item 'Cornell Ave \& Hyde Park Blvd'
+\item 'Cottage Grove Ave \& 43rd St'
+\item 'Cottage Grove Ave \& 47th St'
+\item 'Cottage Grove Ave \& 63rd St'
+\item 'Cottage Grove Ave \& Oakwood Blvd'
+\item 'Cuyler Ave \& Augusta St'
+\item 'Daley Center Plaza'
+\item 'Damen Ave \& Augusta Blvd'
+\item 'Damen Ave \& Charleston St'
+\item 'Damen Ave \& Chicago Ave'
+\item 'Damen Ave \& Clybourn Ave'
+\item 'Damen Ave \& Cortland St'
+\item 'Damen Ave \& Coulter St'
+\item 'Damen Ave \& Cullerton St'
+\item 'Damen Ave \& Division St'
+\item 'Damen Ave \& Foster Ave'
+\item 'Damen Ave \& Grand Ave'
+\item 'Damen Ave \& Leland Ave'
+\item 'Damen Ave \& Madison St'
+\item 'Damen Ave \& Melrose Ave'
+\item 'Damen Ave \& Pierce Ave'
+\item 'Damen Ave \& Sunnyside Ave'
+\item 'Damen Ave \& Wellington Ave'
+\item 'Dayton St \& North Ave'
+\item 'Dearborn Pkwy \& Delaware Pl'
+\item 'Dearborn St \& Adams St'
+\item 'Dearborn St \& Erie St'
+\item 'Dearborn St \& Monroe St'
+\item 'Desplaines St \& Jackson Blvd'
+\item 'Desplaines St \& Kinzie St'
+\item 'Desplaines St \& Randolph St'
+\item 'Dodge Ave \& Church St'
+\item 'Dorchester Ave \& 63rd St'
+\item 'Drake Ave \& Addison St'
+\item 'Drake Ave \& Fullerton Ave'
+\item 'Drake Ave \& Montrose Ave'
+\item 'Dusable Harbor'
+\item 'DuSable Museum'
+\item 'East Ave \& Garfield St'
+\item 'East Ave \& Madison St'
+\item 'Eastlake Ter \& Rogers Ave'
+\item 'Eberhart Ave \& 61st St'
+\item 'Eckhart Park'
+\item 'Ellis Ave \& 53rd St'
+\item 'Ellis Ave \& 55th St'
+\item 'Ellis Ave \& 58th St'
+\item 'Ellis Ave \& 60th St'
+\item 'Elmwood Ave \& Austin St'
+\item 'Elston Ave \& Wabansia Ave'
+\item 'Emerald Ave \& 28th St'
+\item 'Emerald Ave \& 31st St'
+\item 'Fairbanks Ct \& Grand Ave'
+\item 'Fairfield Ave \& Roosevelt Rd'
+\item 'Federal St \& Polk St'
+\item 'Field Blvd \& South Water St'
+\item 'Field Museum'
+\item 'Financial Pl \& Congress Pkwy'
+\item 'Forest Ave \& Chicago Ave'
+\item 'Forest Ave \& Lake St'
+\item 'Fort Dearborn Dr \& 31st St'
+\item 'Francisco Ave \& Foster Ave'
+\item 'Franklin St \& Chicago Ave'
+\item 'Franklin St \& Jackson Blvd'
+\item 'Franklin St \& Lake St'
+\item 'Franklin St \& Monroe St'
+\item 'Franklin St \& Quincy St'
+\item 'Glenwood Ave \& Morse Ave'
+\item 'Green St \& Madison St'
+\item 'Green St \& Randolph St'
+\item 'Greenview Ave \& Diversey Pkwy'
+\item 'Greenview Ave \& Fullerton Ave'
+\item 'Greenview Ave \& Jarvis Ave'
+\item 'Greenwood Ave \& 47th St'
+\item 'Halsted St \& 18th St'
+\item 'Halsted St \& 21st St'
+\item 'Halsted St \& 35th St (*)'
+\item 'Halsted St \& 47th Pl'
+\item 'Halsted St \& Archer Ave'
+\item 'Halsted St \& Blackhawk St (*)'
+\item 'Halsted St \& Dickens Ave'
+\item 'Halsted St \& Diversey Pkwy'
+\item 'Halsted St \& Maxwell St'
+\item 'Halsted St \& North Branch St'
+\item 'Halsted St \& Polk St'
+\item 'Halsted St \& Roosevelt Rd'
+\item 'Halsted St \& Roscoe St'
+\item 'Halsted St \& Willow St'
+\item 'Halsted St \& Wrightwood Ave'
+\item 'Hampden Ct \& Diversey Pkwy'
+\item 'Harper Ave \& 59th St'
+\item 'Hermitage Ave \& Polk St'
+\item 'Humboldt Blvd \& Armitage Ave'
+\item 'Humphrey Ave \& Ontario St'
+\item 'Indiana Ave \& 26th St'
+\item 'Indiana Ave \& 31st St'
+\item 'Indiana Ave \& 40th St'
+\item 'Indiana Ave \& Roosevelt Rd'
+\item 'Jefferson St \& Monroe St'
+\item 'Jeffery Blvd \& 71st St'
+\item 'Jeffery Blvd \& 76th St'
+\item 'Kedzie Ave \& 21st St'
+\item 'Kedzie Ave \& Bryn Mawr Ave'
+\item 'Kedzie Ave \& Chicago Ave'
+\item 'Kedzie Ave \& Foster Ave'
+\item 'Kedzie Ave \& Harrison St'
+\item 'Kedzie Ave \& Lake St'
+\item 'Kedzie Ave \& Milwaukee Ave'
+\item 'Kedzie Ave \& Palmer Ct'
+\item 'Keystone Ave \& Fullerton Ave'
+\item 'Keystone Ave \& Montrose Ave'
+\item 'Kilbourn Ave \& Irving Park Rd'
+\item 'Kimball Ave \& Belmont Ave'
+\item 'Kimbark Ave \& 53rd St'
+\item 'Kingsbury St \& Erie St'
+\item 'Kingsbury St \& Kinzie St'
+\item 'Knox Ave \& Montrose Ave'
+\item 'Kosciuszko Park'
+\item 'Lake Park Ave \& 35th St'
+\item 'Lake Park Ave \& 47th St'
+\item 'Lake Park Ave \& 53rd St'
+\item 'Lake Park Ave \& 56th St'
+\item 'Lake Shore Dr \& Belmont Ave'
+\item 'Lake Shore Dr \& Diversey Pkwy'
+\item 'Lake Shore Dr \& Monroe St'
+\item 'Lake Shore Dr \& North Blvd'
+\item 'Lake Shore Dr \& Ohio St'
+\item 'Lake Shore Dr \& Wellington Ave'
+\item 'Lakefront Trail \& Bryn Mawr Ave'
+\item 'Lakeview Ave \& Fullerton Pkwy'
+\item 'Laramie Ave \& Gladys Ave'
+\item 'Larrabee St \& Armitage Ave'
+\item 'Larrabee St \& Division St'
+\item 'Larrabee St \& Kingsbury St'
+\item 'Larrabee St \& Menomonee St'
+\item 'Larrabee St \& North Ave'
+\item 'Larrabee St \& Oak St'
+\item 'Larrabee St \& Webster Ave'
+\item 'LaSalle St \& Adams St'
+\item 'LaSalle St \& Illinois St'
+\item 'LaSalle St \& Jackson Blvd'
+\item 'LaSalle St \& Washington St'
+\item 'Leavitt St \& Addison St'
+\item 'Leavitt St \& Armitage Ave'
+\item 'Leavitt St \& Lawrence Ave'
+\item 'Leavitt St \& North Ave'
+\item 'Lincoln Ave \& Addison St'
+\item 'Lincoln Ave \& Belle Plaine Ave'
+\item 'Lincoln Ave \& Belmont Ave'
+\item 'Lincoln Ave \& Diversey Pkwy'
+\item 'Lincoln Ave \& Fullerton Ave'
+\item 'Lincoln Ave \& Leavitt St'
+\item 'Lincoln Ave \& Roscoe St'
+\item 'Lincoln Ave \& Waveland Ave'
+\item 'Lincoln Ave \& Winona St'
+\item 'Logan Blvd \& Elston Ave'
+\item 'Lombard Ave \& Garfield St'
+\item 'Lombard Ave \& Madison St'
+\item 'Loomis St \& Archer Ave'
+\item 'Loomis St \& Jackson Blvd'
+\item 'Loomis St \& Lexington St'
+\item 'Loomis St \& Taylor St (*)'
+\item 'Manor Ave \& Leland Ave'
+\item 'Maplewood Ave \& Peterson Ave'
+\item 'Marine Dr \& Ainslie St'
+\item 'Marion St \& South Blvd'
+\item 'Marshfield Ave \& 44th St'
+\item 'Marshfield Ave \& Cortland St'
+\item 'May St \& Cullerton St'
+\item 'May St \& Taylor St'
+\item 'McClurg Ct \& Erie St'
+\item 'McClurg Ct \& Illinois St'
+\item 'McCormick Place'
+\item 'Michigan Ave \& 14th St'
+\item 'Michigan Ave \& 18th St'
+\item 'Michigan Ave \& 8th St'
+\item 'Michigan Ave \& Congress Pkwy'
+\item 'Michigan Ave \& Jackson Blvd'
+\item 'Michigan Ave \& Lake St'
+\item 'Michigan Ave \& Madison St'
+\item 'Michigan Ave \& Oak St'
+\item 'Michigan Ave \& Pearson St'
+\item 'Michigan Ave \& Washington St'
+\item 'Mies van der Rohe Way \& Chestnut St'
+\item 'Mies van der Rohe Way \& Chicago Ave'
+\item 'Millennium Park'
+\item 'Milwaukee Ave \& Grand Ave'
+\item 'Milwaukee Ave \& Rockwell St'
+\item 'Milwaukee Ave \& Wabansia Ave'
+\item 'MLK Jr Dr \& 29th St'
+\item 'MLK Jr Dr \& 56th St (*)'
+\item 'MLK Jr Dr \& Oakwood Blvd'
+\item 'Monticello Ave \& Irving Park Rd'
+\item 'Montrose Harbor'
+\item 'Morgan Ave \& 14th Pl'
+\item 'Morgan St \& 18th St'
+\item 'Morgan St \& 31st St'
+\item 'Morgan St \& Lake St'
+\item 'Morgan St \& Polk St'
+\item 'Museum of Science and Industry'
+\item 'Noble St \& Milwaukee Ave'
+\item 'Normal Ave \& Archer Ave'
+\item 'Oak Park Ave \& South Blvd'
+\item 'Oakley Ave \& Irving Park Rd'
+\item 'Oakley Ave \& Roscoe St'
+\item 'Oakley Ave \& Touhy Ave'
+\item 'Ogden Ave \& Chicago Ave'
+\item 'Ogden Ave \& Congress Pkwy'
+\item 'Ogden Ave \& Race Ave'
+\item 'Ogden Ave \& Roosevelt Rd'
+\item 'Orleans St \& Chestnut St (NEXT Apts)'
+\item 'Orleans St \& Elm St (*)'
+\item 'Orleans St \& Merchandise Mart Plaza'
+\item 'Orleans St \& Ohio St'
+\item 'Paulina Ave \& North Ave'
+\item 'Paulina St \& 18th St'
+\item 'Paulina St \& Howard St'
+\item 'Paulina St \& Montrose Ave'
+\item 'Peoria St \& Jackson Blvd'
+\item 'Pine Grove Ave \& Irving Park Rd'
+\item 'Pine Grove Ave \& Waveland Ave'
+\item 'Prairie Ave \& 43rd St'
+\item 'Prairie Ave \& Garfield Blvd'
+\item 'Pulaski Rd \& Eddy St'
+\item 'Racine Ave (May St) \& Fulton St'
+\item 'Racine Ave \& 13th St'
+\item 'Racine Ave \& 15th St'
+\item 'Racine Ave \& 18th St'
+\item 'Racine Ave \& 35th St'
+\item 'Racine Ave \& Belmont Ave'
+\item 'Racine Ave \& Congress Pkwy'
+\item 'Racine Ave \& Fullerton Ave'
+\item 'Racine Ave \& Randolph St'
+\item 'Racine Ave \& Wrightwood Ave'
+\item 'Ravenswood Ave \& Balmoral Ave'
+\item 'Ravenswood Ave \& Berteau Ave'
+\item 'Ravenswood Ave \& Irving Park Rd'
+\item 'Ravenswood Ave \& Lawrence Ave'
+\item 'Ravenswood Ave \& Montrose Ave (*)'
+\item 'Rhodes Ave \& 32nd St'
+\item 'Richmond St \& Diversey Ave'
+\item 'Ridge Blvd \& Howard St'
+\item 'Ridge Blvd \& Touhy Ave'
+\item 'Ridgeland Ave \& Lake St'
+\item 'Ritchie Ct \& Banks St'
+\item 'Rockwell St \& Eastwood Ave'
+\item 'Rush St \& Cedar St'
+\item 'Rush St \& Hubbard St'
+\item 'Rush St \& Superior St'
+\item 'Saginaw Ave \& Exchange Ave'
+\item 'Sangamon St \& Washington Blvd (*)'
+\item 'Sawyer Ave \& Irving Park Rd'
+\item 'Sedgwick St \& Huron St'
+\item 'Sedgwick St \& North Ave'
+\item 'Sedgwick St \& Schiller St'
+\item 'Sedgwick St \& Webster Ave'
+\item 'Seeley Ave \& Garfield Blvd'
+\item 'Seeley Ave \& Roscoe St'
+\item 'Shedd Aquarium'
+\item 'Sheffield Ave \& Fullerton Ave'
+\item 'Sheffield Ave \& Kingsbury St'
+\item 'Sheffield Ave \& Waveland Ave'
+\item 'Sheffield Ave \& Webster Ave'
+\item 'Sheffield Ave \& Wellington Ave'
+\item 'Sheffield Ave \& Willow St'
+\item 'Sheffield Ave \& Wrightwood Ave'
+\item 'Sheridan Rd \& Buena Ave'
+\item 'Sheridan Rd \& Greenleaf Ave'
+\item 'Sheridan Rd \& Irving Park Rd'
+\item 'Sheridan Rd \& Lawrence Ave'
+\item 'Sheridan Rd \& Loyola Ave'
+\item 'Sheridan Rd \& Montrose Ave'
+\item 'Sheridan Rd \& Noyes St (NU)'
+\item 'Shields Ave \& 28th Pl'
+\item 'Shields Ave \& 31st St'
+\item 'Shields Ave \& 43rd St'
+\item 'Shore Dr \& 55th St'
+\item 'Southport Ave \& Belmont Ave'
+\item 'Southport Ave \& Clark St'
+\item 'Southport Ave \& Clybourn Ave'
+\item 'Southport Ave \& Irving Park Rd'
+\item 'Southport Ave \& Roscoe St'
+\item 'Southport Ave \& Waveland Ave'
+\item 'Southport Ave \& Wellington Ave'
+\item 'Southport Ave \& Wrightwood Ave'
+\item 'Spaulding Ave \& Armitage Ave'
+\item 'Spaulding Ave \& Division St'
+\item 'St. Clair St \& Erie St'
+\item 'St. Louis Ave \& Balmoral Ave'
+\item 'State St \& 19th St'
+\item 'State St \& 33rd St'
+\item 'State St \& 35th St'
+\item 'State St \& Harrison St'
+\item 'State St \& Kinzie St'
+\item 'State St \& Pearson St'
+\item 'State St \& Randolph St'
+\item 'State St \& Van Buren St'
+\item 'Stave St \& Armitage Ave'
+\item 'Stetson Ave \& South Water St'
+\item 'Stockton Dr \& Wrightwood Ave'
+\item 'Streeter Dr \& Grand Ave'
+\item 'Talman Ave \& Addison St'
+\item 'Theater on the Lake'
+\item 'Troy St \& Elston Ave'
+\item 'Troy St \& North Ave'
+\item 'University Ave \& 57th St'
+\item 'University Library (NU)'
+\item 'Waba'
+\item 'Wabash Ave \& 16th St'
+\item 'Wabash Ave \& 8th St'
+\item 'Wabash Ave \& Adams St'
+\item 'Wabash Ave \& Cermak Rd'
+\item 'Wabash Ave \& Grand Ave'
+\item 'Wabash Ave \& Roosevelt Rd'
+\item 'Wabash Ave \& Wacker Pl'
+\item 'Wacker Dr \& Washington St'
+\item 'Wallace St \& 35th St'
+\item 'Washtenaw Ave \& 15th St (*)'
+\item 'Washtenaw Ave \& Lawrence Ave'
+\item 'Wells St \& 19th St'
+\item 'Wells St \& Concord Ln'
+\item 'Wells St \& Elm St'
+\item 'Wells St \& Evergreen Ave'
+\item 'Wells St \& Huron St'
+\item 'Wells St \& Polk St'
+\item 'Wells St \& Walton St'
+\item 'Wentworth Ave \& 24th St'
+\item 'Wentworth Ave \& 33rd St'
+\item 'Wentworth Ave \& 35th St'
+\item 'Wentworth Ave \& Archer Ave'
+\item 'Western Ave \& 21st St'
+\item 'Western Ave \& 28th St'
+\item 'Western Ave \& Congress Pkwy'
+\item 'Western Ave \& Division St'
+\item 'Western Ave \& Granville Ave'
+\item 'Western Ave \& Howard St'
+\item 'Western Ave \& Leland Ave'
+\item 'Western Ave \& Lunt Ave'
+\item 'Western Ave \& Walton St'
+\item 'Western Ave \& Winnebago Ave'
+\item 'Wilton Ave \& Belmont Ave'
+\item 'Wilton Ave \& Diversey Pkwy'
+\item 'Winchester Ave \& Elston Ave'
+\item 'Wisconsin Ave \& Madison St'
+\item 'Wolcott Ave \& Polk St'
+\item 'Wood St \& Division St'
+\item 'Wood St \& Hubbard St'
+\item 'Wood St \& Milwaukee Ave'
+\item 'Wood St \& Taylor St'
+\item 'Woodlawn Ave \& 55th St'
+\item 'Woodlawn Ave \& Lake Park Ave'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}subset cities dataset to only have rows for the most common start stations}
+         \PY{n}{cities2} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{subset}\PY{p}{(}\PY{n}{cities}\PY{p}{,} \PY{n}{Start.Station} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Streeter Dr \PYZam{} Grand Ave\PYZdq{}} \PY{o}{|} \PY{n}{Start.Station} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Pershing Square North\PYZdq{}} \PY{o}{|} \PY{n}{Start.Station} \PY{o}{==} \PY{l+s}{\PYZdq{}}\PY{l+s}{Columbus Circle / Union Station\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}plot most common start stations}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{data} \PY{o}{=} \PY{n}{cities2}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{cities2}\PY{o}{\PYZdl{}}\PY{n}{Start.Station}\PY{p}{)}\PY{p}{)}  \PY{o}{+} 
+           \PY{n+nf}{geom\PYZus{}bar}\PY{p}{(}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{ggtitle}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Frequencies for the most common Stations in each city\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{xlab}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Start Station\PYZdq{}}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{ylab}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Frequency\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{The most common start stations were Pershing Square North,
+Streeter Dr \& Grand Ave and Columbus Circle/Union Station for New York,
+Chicago and Washington respectively. Columbus/Circle Union was the most
+frequently used overall.}
+
+    \hypertarget{question-3}{%
+\subsubsection{Question 3}\label{question-3}}
+
+\textbf{What is the most common month?}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}create a new column for start Months derived from the start times }
+         \PY{n+nf}{library}\PY{p}{(}\PY{n}{magrittr}\PY{p}{)}
+         
+         \PY{n}{cities}\PY{o}{\PYZdl{}}\PY{n}{Months} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n}{cities}\PY{o}{\PYZdl{}}\PY{n}{Start.Time} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+                           \PY{n+nf}{as.Date}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZpc{}\PYZgt{}\PYZpc{}}
+                           \PY{n+nf}{months.Date}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}function to get the most common months}
+         \PY{n}{MostCommonMonth} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{function}\PY{p}{(}\PY{n}{city} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Chicago\PYZdq{}} \PY{p}{,}\PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{ \PYZdq{}}\PY{p}{)}\PY{p}{\PYZob{}}
+           \PY{n}{cities} \PY{o}{\PYZlt{}\PYZhy{}} \PY{n+nf}{subset}\PY{p}{(}\PY{n}{cities}\PY{p}{,} \PY{n}{cities}\PY{o}{\PYZdl{}}\PY{n}{city} \PY{o}{==} \PY{n}{city}\PY{p}{)}
+           \PY{n}{df} \PY{o}{=} \PY{n+nf}{data.frame}\PY{p}{(}\PY{n+nf}{table}\PY{p}{(}\PY{n}{cities}\PY{o}{\PYZdl{}}\PY{n}{Month}\PY{p}{)}\PY{p}{)} 
+           \PY{n}{df}\PY{n+nf}{[which.max}\PY{p}{(}\PY{n}{df}\PY{o}{\PYZdl{}}\PY{n}{Freq}\PY{p}{)}\PY{p}{,} \PY{n}{]}
+           \PY{n+nf}{print}\PY{p}{(}\PY{n}{tt}\PY{p}{)}
+           \PY{n+nf}{return}\PY{p}{(}\PY{n}{df}\PY{n+nf}{[which.max}\PY{p}{(}\PY{n}{df}\PY{o}{\PYZdl{}}\PY{n}{Freq}\PY{p}{)}\PY{p}{,} \PY{n}{]}\PY{n}{[1}\PY{p}{,} \PY{l+m}{1}\PY{n}{]}\PY{p}{)}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n+nf}{MostCommonMonth}\PY{p}{(}\PY{n}{city} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{New York\PYZdq{}}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Most Common month in New York\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{MostCommonMonth}\PY{p}{(}\PY{n}{city} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Washington\PYZdq{}}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Most Common month in Washington\PYZdq{}}\PY{p}{)}
+         \PY{n+nf}{MostCommonMonth}\PY{p}{(}\PY{n}{city} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Chicago\PYZdq{}}\PY{p}{,} \PY{n}{tt} \PY{o}{=} \PY{l+s}{\PYZdq{}}\PY{l+s}{Most Common month in Chicago\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Most Common month in New York"
+
+    \end{Verbatim}
+
+    June
+\emph{Levels}: \begin{enumerate*}
+\item 'April'
+\item 'February'
+\item 'January'
+\item 'June'
+\item 'March'
+\item 'May'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Most Common month in Washington"
+
+    \end{Verbatim}
+
+    June
+\emph{Levels}: \begin{enumerate*}
+\item 'April'
+\item 'February'
+\item 'January'
+\item 'June'
+\item 'March'
+\item 'May'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1] "Most Common month in Chicago"
+
+    \end{Verbatim}
+
+    June
+\emph{Levels}: \begin{enumerate*}
+\item 'April'
+\item 'February'
+\item 'January'
+\item 'June'
+\item 'March'
+\item 'May'
+\end{enumerate*}
+
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}a plot of frequencies of all months by city}
+         \PY{n+nf}{ggplot}\PY{p}{(}\PY{n}{cities}\PY{p}{,} \PY{n+nf}{aes}\PY{p}{(}\PY{n}{Months}\PY{p}{)}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{geom\PYZus{}bar}\PY{p}{(}\PY{p}{)} \PY{o}{+} 
+           \PY{n+nf}{ggtitle}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Monthly Number of Rides by City\PYZdq{}}\PY{p}{)} \PY{o}{+}
+           \PY{n+nf}{ylab}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{Number of Rides\PYZdq{}}\PY{p}{)} \PY{o}{+}
+           \PY{n+nf}{facet\PYZus{}wrap}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{city}\PY{p}{,} \PY{n}{ncol} \PY{o}{=} \PY{l+m}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{In all three cities, June was seen to be the month with the most
+rides}
+
+    \hypertarget{finishing-up}{%
+\subsection{Finishing Up}\label{finishing-up}}
+
+\begin{quote}
+Congratulations! You have reached the end of the Explore Bikeshare Data
+Project. You should be very proud of all you have accomplished!
+\end{quote}
+
+\begin{quote}
+\textbf{Tip}: Once you are satisfied with your work here, check over
+your report to make sure that it is satisfies all the areas of the
+\href{https://review.udacity.com/\#!/rubrics/2508/view}{rubric}.
+\end{quote}
+
+\hypertarget{directions-to-submit}{%
+\subsection{Directions to Submit}\label{directions-to-submit}}
+
+\begin{quote}
+Before you submit your project, you need to create a .html or .pdf
+version of this notebook in the workspace here. To do that, run the code
+cell below. If it worked correctly, you should get a return code of 0,
+and you should see the generated .html file in the workspace directory
+(click on the orange Jupyter icon in the upper left).
+\end{quote}
+
+\begin{quote}
+Alternatively, you can download this report as .html via the
+\textbf{File} \textgreater{} \textbf{Download as} submenu, and then
+manually upload it into the workspace directory by clicking on the
+orange Jupyter icon in the upper left, then using the Upload button.
+\end{quote}
+
+\begin{quote}
+Once you've done this, you can submit your project by clicking on the
+``Submit Project'' button in the lower right here. This will create and
+submit a zip file with this .ipynb doc and the .html or .pdf version you
+created. Congratulations!
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nf}{system}\PY{p}{(}\PY{l+s}{\PYZsq{}}\PY{l+s}{python \PYZhy{}m nbconvert Explore\PYZus{}bikeshare\PYZus{}data.ipynb\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
