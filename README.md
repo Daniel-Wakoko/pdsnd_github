@@ -4,10 +4,10 @@
 Wednesday, September 29, 2021
 
 ### Project Title
-Replace the Project Title
+Explore Bikeshare Data with R
 
 ### Description
-Describe what your project is about and what it does
+This project explores bikeshare data for three cities in the United States by computing descriptive statistics and making visualizations with R code.
 
 ### Files used
 Include the files used
