@@ -10,7 +10,9 @@ Explore Bikeshare Data with R
 This project explores bikeshare data for three cities in the United States by computing descriptive statistics and making visualizations with R code.
 
 ### Files used
-Include the files used
+washington.csv
+new-york-city.csv
+chicago.csv
 
 ### Credits
 It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
