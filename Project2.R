@@ -2,16 +2,16 @@ getwd()
 setwd("D:/DANIEL/Programming for Data Science with R/R Programming/Project 2")
 
 wash <- read.csv("washington.csv")
-ny <- read.csv("new-york-city.csv")
+nyc <- read.csv("new-york-city.csv")
 chi <- read.csv("chicago.csv")
 
 names(chi)
 names(wash)
-names(ny)
+names(nyc)
 
 str(chi)
 str(wash)
-str(ny)
+str(nyc)
 
 
 
@@ -23,12 +23,12 @@ wash <- cbind(wash, Gender, Birth.Year)
 #wash$Gender <- Gender
 head(wash, 3)
 
-ny$city <- "New York"
+nyc$city <- "New York"
 chi$city <- "Chicago"
 wash$city <- "Washington"
 
 #merge all datasets into one
-cities <- rbind(chi, ny, wash)
+cities <- rbind(chi, nyc, wash)
 
 #1 What are the counts for each user type?
 #=============================================================================================
@@ -46,13 +46,13 @@ ggplot(data = cities, aes(User.Type)) +
 
 #2 What is the most common start station?
 #=============================================================================================
-summary(ny$Start.Station)
+summary(nyc$Start.Station)
 
 #
-ssn <- data.frame(table(ny$Start.Station))
-ny.freq <- ssn[which.max(ssn$Freq), ]
-ny.freq[1, 1]
-ny.freq$Var1
+ssn <- data.frame(table(nyc$Start.Station))
+nyc.freq <- ssn[which.max(ssn$Freq), ]
+nyc.freq[1, 1]
+nyc.freq$Var1
 
 #
 ss.chi <- data.frame(table(chi$Start.Station))
@@ -73,7 +73,7 @@ get.freq.SS <- function(p = wash){
   return(p.freq[1, 1])
 }
 
-get.freq.SS(ny)
+get.freq.SS(nyc)
 get.freq.SS(wash)
 get.freq.SS(chi)
 #
