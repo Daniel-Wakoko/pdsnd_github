@@ -13,8 +13,6 @@ str(chi)
 str(wash)
 str(nyc)
 
-
-
 Gender <- c(rep(" ", 300000))
 Birth.Year <- c(rep(" ", 300000))
 
@@ -34,7 +32,6 @@ cities <- rbind(chi, nyc, wash)
 #=============================================================================================
 by(cities$User.Type, cities$city, summary)
 
-
 library(ggplot2)
 ggplot(data = cities, aes(User.Type)) +
   geom_bar() +
@@ -43,29 +40,25 @@ ggplot(data = cities, aes(User.Type)) +
   xlab("User Types") +
   ylab("Count of User Type")
 
-
 #2 What is the most common start station?
 #=============================================================================================
 summary(nyc$Start.Station)
 
-#
 ssn <- data.frame(table(nyc$Start.Station))
 nyc.freq <- ssn[which.max(ssn$Freq), ]
 nyc.freq[1, 1]
 nyc.freq$Var1
 
-#
 ss.chi <- data.frame(table(chi$Start.Station))
 chi.freq <- ss.chi[which.max(ss.chi$Freq), ]
 chi.freq[1, 1]
 chi.freq$Var1
 
-#
 ss.wash <- data.frame(table(wash$Start.Station))
 wash.freq <- ss.wash[which.max(ss.wash$Freq), ]
 wash.freq[1, 1]
 wash.freq$Var1
-#
+
 get.freq.SS <- function(p = wash){
   ss.p <- data.frame(table(p$Start.Station))
   p.freq <- ss.p[which.max(ss.p$Freq), ]
@@ -76,14 +69,13 @@ get.freq.SS <- function(p = wash){
 get.freq.SS(nyc)
 get.freq.SS(wash)
 get.freq.SS(chi)
-#
+
 ss.all <- rbind(ss.wash, ss.chi, ssn)
 
 n <- c("Streeter Dr & Grand Ave","Pershing Square North","Columbus Circle / Union Station")
 
 ss.all2 <- subset(ss.all, Var1 == "Streeter Dr & Grand Ave" | Var1 == "Pershing Square North" | Var1 == "Columbus Circle / Union Station")
 
-#
 cities2 <- subset(cities, Start.Station == "Streeter Dr & Grand Ave" | Start.Station == "Pershing Square North" | Start.Station == "Columbus Circle / Union Station")
 ggplot(data = cities2, aes(cities2$Start.Station))  +
   geom_bar() +
@@ -91,8 +83,7 @@ ggplot(data = cities2, aes(cities2$Start.Station))  +
   xlab("Start Station") +
   ylab("Frequency")
 
-
-#What is the most common month?
+#3 What is the most common month?
 #============================================================================================
 cities
 names(cities)
@@ -103,14 +94,13 @@ class(cities$Start.Time2)
 
 cities$Months <- months.POSIXt(cities$Start.Time2)
 names(cities)
-#
+
 library(magrittr)
 
 cities$Months <- cities$Start.Time %>%
                   as.Date() %>%
                   months.Date()
 
-#
 ggplot(cities, aes(Months)) +
   geom_bar() +
   ggtitle("Monthly Number of Rides by City") +
